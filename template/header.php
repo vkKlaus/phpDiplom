@@ -1,3 +1,13 @@
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
+
+
+
+
+$pdo = connect();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

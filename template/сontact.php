@@ -1,4 +1,56 @@
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php' ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
+
+
+
+$resultMes = '';
+$visitor = '';
+$email = '';
+$phone = '';
+$message = '';
+
+if (isset($_POST['send'])) {
+
+    $resultMes = '';
+
+
+    if (empty(trim($_POST['visitor']))) {
+        $resultMes .= 'Имя не может быть пустым <br>';
+    }
+
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $resultMes .= "E-mail указан не верно.<br>";
+    }
+
+    if (empty(trim($_POST['message']))) {
+        $resultMes .= 'Сообщение не может быть пустым <br>';
+    }
+
+
+    if (!$resultMes) {
+
+        if (! sentMail($_POST)) {
+            $resultMes .= 'ОШИБКА отправки письма <br>';
+            $_POST['dispatched'] = 0;
+        } else {
+            $_POST['dispatched'] = 1;
+        }
+
+        if (!insertMessage($pdo, $_POST)) {
+            $resultMes .=  'ОШИБКА записи сообщения';
+        }
+    }
+
+    if (empty(trim($resultMes))) {
+        $resultMes = 'сообщение отправлено';
+    } else {
+        $visitor = $_POST['visitor'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $message = $_POST['message'];
+    }
+}
+?>
 
 <div class="container-fluid">
     <h2 class="mt-3">КОНТАКТЫ</h2>
@@ -49,23 +101,23 @@
             <div class="row mt-5 mb-5">
                 <div class="col d-flex justify-content-center">
                     <a href="#">
-                        <span class="fab fa-facebook  social-icons-contact"></span>
+                        <span class="fab fa-facebook  social-icons-contact mr-3"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-google-plus  social-icons-contact"></span>
+                        <span class="fab fa-google-plus  social-icons-contact mr-3"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-twitter  social-icons-contact"></span>
+                        <span class="fab fa-twitter  social-icons-contact mr-3"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-instagram  social-icons-contact"></span>
+                        <span class="fab fa-instagram  social-icons-contact mr-3"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-vk  social-icons-contact"></span>
+                        <span class="fab fa-vk  social-icons-contact mr-3"></span>
                     </a>
                 </div>
             </div>
@@ -78,30 +130,31 @@
         </div>
 
         <div class="col">
-            <h4>Оставьте сообщение и Вам ответят</h4>
+            <h4>Задайте вопрос или оставьте сообщение и Вам ответят</h4>
 
-            <div class="form-group col">
-                <label for="name" class="h5">Имя</label>
+            <form method="POST">
+                <label for="name" class="h5">&#128100; Имя</label>
 
-                <input type="text" class="form-control" id="name" placeholder="&#128100;" required>
-            </div>
+                <input type="text" class="form-control" id="name" required name="visitor" value="<?= $visitor ?>">
 
-            <div class="form-group col">
-                <label for="email" class="h5">Email</label>
 
-                <input type="email" class="form-control" id="email" placeholder="&#128231;" required>
-            </div>
+                <label for="email" class="h5">&#128231; Email</label>
 
-            <div class="form-group col">
-                <label for="message" class="h5 ">Сообщение</label>
+                <input type="email" class="form-control" id="email" required name="email" value="<?= $email ?>">
 
-                <textarea id="message" class="form-control" rows="5" placeholder="&#128221;" required></textarea>
-            </div>
+                <label for="phone" class="h5">&#128222; Телефон</label>
 
-            <button type="submit" id="form-submit" class="btn btn-info btn-lg pull-right ">Отправить</button>
+                <input type="tel" class="form-control" id="phone" name="phone" value="<?= $phone ?>">
 
-            <div id="msgSubmit" class="h4 text-center hidden">Сообщение отправлено!</div>
+
+                <label for="message" class="h5 ">&#128221; Сообщение</label>
+
+                <textarea id="message" class="form-control" rows="5" required name="message"> <?= $message ?></textarea>
+
+                <input type="submit" id="form-submit" class="btn btn-info btn-lg float-right mt-5" name="send" value="Отправить">
+
+                <div id="msgSubmit" class="h5 text-center hidden mt-3"><?= $resultMes ?></div>
+            </form>
         </div>
-    </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
