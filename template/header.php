@@ -2,8 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
 
-
-
+$requestUri=$_SERVER['REQUEST_URI'];
 
 $pdo = connect();
 ?>
@@ -13,17 +12,18 @@ $pdo = connect();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=A, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apnea shop</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
 
 <body>
-    <header class="container-fluid header">
+    <header class="container-fluid fixed-top header">
         <div class="row d-flex ml-5 mr-5 header-contact-info">
             <ul class="nav nav-pill col-sm-6">
                 <li class="mr-3 ">
@@ -102,7 +102,7 @@ $pdo = connect();
                     <ul class="navbar-nav">
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="/">
-                                <span class="item-menu active">
+                                <span class="item-menu <?= ($requestUri=='/' ? 'active':'') ?>">
                                     Главная <span class="sr-only">(current)</span>
                                 </span>
                             </a>
@@ -110,7 +110,7 @@ $pdo = connect();
 
                         <li class="nav-item dropdown mr-3">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="item-menu">
+                                <span class="item-menu ">
                                     Магазин
                                 </span>
                             </a>
@@ -132,19 +132,19 @@ $pdo = connect();
 
                         <li class="nav-item dropdown mr-3">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="item-menu">
+                                <span class="item-menu <?= ($requestUri=='/template/delivery.php' || $requestUri=='/template/about.php'? 'active':'') ?>">
                                     О магазине
                                 </span>
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/template/delivery.php">
                                     <span class="item-submenu">
                                         Доставка и оплата
                                     </span>
                                 </a>
 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/template/about.php">
                                     <span class="item-submenu">
                                         О магазине
                                     </span>
@@ -153,8 +153,8 @@ $pdo = connect();
                         </li>
 
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="/template/сontact.php">
-                                <span class="item-menu">
+                            <a class="nav-link" href="/template/contact.php">
+                                <span class="item-menu <?= ($requestUri=='/template/contact.php' ? 'active':'') ?>">
                                     Контакты
                                 </span>
                             </a>
@@ -164,6 +164,14 @@ $pdo = connect();
                             <a class="nav-link" href="#">
                                 <span class="item-menu">
                                     Заказы
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="#">
+                                <span class="item-menu">
+                                    Сообщения
                                 </span>
                             </a>
                         </li>
@@ -216,3 +224,6 @@ $pdo = connect();
         </div>
 
         <hr class="hr-horizontal-gradient mt-0 mb-0">
+    </header>
+
+    <main class="container-fluid">  

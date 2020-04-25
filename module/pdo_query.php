@@ -1,5 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/module/helpers.php';
+
 /**
  * функция записи сообщения посетителя
  * @param object $pdo - объект соединения с БД
@@ -44,6 +45,23 @@ function insertMessage(object $pdo,  array $data): bool
             ]
             )
         );
+}
 
-    
+/**
+ * функция получения полных таблиц
+ * @param object $pdo - объект соединения с БД
+ * @param sting $table - таблица
+ * @param string $where - условие
+ * @return array - результат записи сообщения
+ */
+
+function getTable(object $pdo, string $table, string $where="1"): array
+{
+    $sql = "SELECT * FROM `$table` WHERE $where";
+                
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute();
+   
+    return $stmt->fetchAll();
 }

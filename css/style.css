@@ -3,17 +3,14 @@
     background-image: url("../images/water-banner-header.jpg");
 }
 
+header{
+    background-color: #fff;
+}
 .slogan-shop {
     font-size: 0.6em;
     color: #fff;
 }
 
-/* 
-body{
-    background-image: url("../images/bdg_body.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
 .contactinfo {
     font-size: 0.9em;
     color: #000;
@@ -38,10 +35,11 @@ body{
 .item-menu,
 .item-submenu {
     color: #000;
+    font-weight: normal;
 }
 
 .item-menu:hover, .item-submenu:hover {
-    color: rgb(119, 88, 31);
+    border-bottom: 2px solid #028eaf;
 }
 
 .active {
@@ -53,4 +51,14 @@ body{
 	height: 3px;
 	border: none;
     background: linear-gradient(45deg, #01406b, #028eaf, #b0d5de);
+}
+
+main{
+    margin-top: 170px;
+    margin-bottom: 50px;
+    padding-top: 10px;
+}
+
+.list-item-payment{
+    list-style: square;
 }

@@ -1,3 +1,4 @@
+</main>
 <footer class="container-fluid footer fixed-bottom text-center">
             <div>&copy;&emsp;Vladislav A. Klokol&emsp;2020</div>
         </footer>

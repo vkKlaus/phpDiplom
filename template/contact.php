@@ -1,8 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
 
-
-
 $resultMes = '';
 $visitor = '';
 $email = '';
@@ -29,7 +27,7 @@ if (isset($_POST['send'])) {
 
     if (!$resultMes) {
 
-        if (! sentMail($_POST)) {
+        if (!sentMail($_POST)) {
             $resultMes .= 'ОШИБКА отправки письма <br>';
             $_POST['dispatched'] = 0;
         } else {
@@ -52,12 +50,9 @@ if (isset($_POST['send'])) {
 }
 ?>
 
-<div class="container-fluid">
-    <!-- <h2 class="mt-3">КОНТАКТЫ</h2> -->
-
-    <div class="row d-flex flex-row justify-content-between ml-5 mr-5 mt-3 ">
+    <div class="row d-flex flex-row justify-content-between">
         <div class="col-4">
-
+        <p><strong>Связаться с нами</strong></p>
             <div class="row mb-3 h5">
                 <div class="col-2">
                     <i class="fa fa-phone-alt"></i>
@@ -130,7 +125,7 @@ if (isset($_POST['send'])) {
         </div>
 
         <div class="col ml-5">
-            <h4>Задайте вопрос или оставьте сообщение и Вам ответят</h4>
+            <p><strong>Задайте вопрос или оставьте сообщение и Вам ответят</strong></p>
 
             <form method="POST">
                 <label for="name" class="h5">&#128100; Имя</label>
@@ -156,5 +151,6 @@ if (isset($_POST['send'])) {
                 <div id="msgSubmit" class="h5 text-center hidden mt-3"><?= $resultMes ?></div>
             </form>
         </div>
+    </div>
 
-        <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>

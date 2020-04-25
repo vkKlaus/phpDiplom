@@ -1,11 +1,11 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php' ?>
 
-<main class="d-flex justify-content-between">
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionLeft.php' ?>
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionCenter.php' ?>
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionRight.php' ?>
-</main>
-        <!-- 
+<div>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionLeft.php' ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionCenter.php' ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionRight.php' ?>
+</div>
+<!-- 
     <main class="container-fluid d-flex flex-row justify-content-between mt-5 pt-5 mb-5">
         <section class="left-block  d-flex flex-column justify-content-start pt-3">
             <div class="dropdown">
