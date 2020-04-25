@@ -53,7 +53,7 @@ if (isset($_POST['send'])) {
 ?>
 
 <div class="container-fluid">
-    <h2 class="mt-3">КОНТАКТЫ</h2>
+    <!-- <h2 class="mt-3">КОНТАКТЫ</h2> -->
 
     <div class="row d-flex flex-row justify-content-between ml-5 mr-5 mt-3 ">
         <div class="col-4">
@@ -129,7 +129,7 @@ if (isset($_POST['send'])) {
             </div>
         </div>
 
-        <div class="col">
+        <div class="col ml-5">
             <h4>Задайте вопрос или оставьте сообщение и Вам ответят</h4>
 
             <form method="POST">

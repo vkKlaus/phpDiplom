@@ -18,7 +18,7 @@ function sentMail(array $data): bool
     $Body .= $name;
     $Body .= "n";
 
-    $Body .= "Email: ";
+    $Body .= "Email: "; 
     $Body .= $email;
     $Body .= "n";
 
