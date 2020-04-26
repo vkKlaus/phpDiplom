@@ -1,7 +1,7 @@
-<?php 
-    $brand = getTable($pdo,"brands");
-    $category = getTable($pdo,"category");
+<?php
+$brand = getTable($pdo, "brands");
+$category = getTable($pdo, "category");
 ?>
-<div>
-   
+<div class="section-left">
+<strong>Новости</strong>
 </div>

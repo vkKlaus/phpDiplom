@@ -3,6 +3,6 @@
     $is_recom = getTable($pdo,"product","is_recommended"); 
 
 ?>
-<div>
-    правая секция
+<div class="section-right">
+<strong>Вопросы, отзывы. мнения</strong>
 </div>

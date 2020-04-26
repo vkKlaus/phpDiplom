@@ -62,3 +62,24 @@ main{
 .list-item-payment{
     list-style: square;
 }
+
+.section-center{
+    width: 60%;
+    background-color: rgb(161, 161, 161);
+}
+
+.section-left, .section-right{
+    width: 20%;
+    /* background-color: red; */
+}
+
+.carousel__is-new{
+    background-color: #fff;
+}
+
+.img-recom{
+    height: 25vh;
+}
+
+
+
