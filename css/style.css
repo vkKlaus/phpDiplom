@@ -93,5 +93,15 @@ header{
     height: 15vh;
 }
 
+.new-date{
+    font-size: 0.8em;
+}
+.new-title{
+    font-size: 1em;
+}
+.new-text{
+    font-size: 0.7em;
+}
+
 
 

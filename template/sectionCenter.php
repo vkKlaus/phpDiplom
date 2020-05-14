@@ -3,7 +3,7 @@ $is_new = getTable($pdo, "product", "is_new");
 $is_recom = getTable($pdo, "product", "is_recommended");
 ?>
 
-<div class="section-center bg-white">
+<div class="col-6 bg-white">
     <h2 class="text-center text-primary">Nовые поступления</h2>
     <?php foreach($is_new as $item_new){?>
         

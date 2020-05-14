@@ -52,12 +52,13 @@ function insertMessage(object $pdo,  array $data): bool
  * @param object $pdo - объект соединения с БД
  * @param sting $table - таблица
  * @param string $where - условие
+ * @param string $sort - сортировка
  * @return array - результат записи сообщения
  */
 
-function getTable(object $pdo, string $table, string $where="1"): array
+function getTable(object $pdo, string $table, string $where="1", $sort=""): array
 {
-    $sql = "SELECT * FROM `$table` WHERE $where";
+    $sql = "SELECT * FROM `$table` WHERE $where" . ($sort==""?"": "ORDER BY $sort");
                 
     $stmt = $pdo->prepare($sql);
 

@@ -1,6 +1,6 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php' ?>
 
-<div class="d-flex justify-content-between flex-wrap">
+<div class="row">
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionLeft.php' ?>
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionCenter.php' ?>
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/template/sectionRight.php' ?>
