@@ -50,8 +50,8 @@ if (isset($_POST['send'])) {
 }
 ?>
 
-    <div class="row d-flex flex-row justify-content-between">
-        <div class="col-4">
+    <div class="row d-flex flex-row">
+        <div class="col">
         <p><strong>Связаться с нами</strong></p>
             <div class="row mb-3 h5">
                 <div class="col-2">
@@ -96,23 +96,23 @@ if (isset($_POST['send'])) {
             <div class="row mt-5 mb-5">
                 <div class="col d-flex justify-content-center">
                     <a href="#">
-                        <span class="fab fa-facebook  social-icons-contact mr-3"></span>
+                        <span class="fab fa-facebook  social-icons-contact mr-5"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-google-plus  social-icons-contact mr-3"></span>
+                        <span class="fab fa-google-plus  social-icons-contact mr-5"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-twitter  social-icons-contact mr-3"></span>
+                        <span class="fab fa-twitter  social-icons-contact mr-5"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-instagram  social-icons-contact mr-3"></span>
+                        <span class="fab fa-instagram  social-icons-contact mr-5"></span>
                     </a>
 
                     <a href="#">
-                        <span class="fab fa-vk  social-icons-contact mr-3"></span>
+                        <span class="fab fa-vk  social-icons-contact mr-5"></span>
                     </a>
                 </div>
             </div>
@@ -124,7 +124,7 @@ if (isset($_POST['send'])) {
             </div>
         </div>
 
-        <div class="col ml-5">
+        <div class="col">
             <p><strong>Задайте вопрос или оставьте сообщение и Вам ответят</strong></p>
 
             <form method="POST">

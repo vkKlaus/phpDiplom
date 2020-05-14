@@ -48,35 +48,35 @@ $pdo = connect();
                 </li>
             </ul>
 
-            <div class="col-sm-6">
+            <div class="col">
                 <ul class="nav navbar-pills text-right float-right">
-                    <li class="mr-1">
+                <li>
                         <a href="#">
-                            <i class="fab fa-facebook contactinfo social-icons"></i>
+                            <i class="fab fa-facebook  social-icons mr-4"></i>
                         </a>
                     </li>
 
-                    <li class="mr-1">
+                    <li>
                         <a href="#">
-                            <i class="fab fa-google-plus contactinfo social-icons"></i>
+                            <i class="fab fa-google-plus  social-icons mr-4"></i>
                         </a>
                     </li>
 
-                    <li class="mr-1">
+                    <li>
                         <a href="#">
-                            <i class="fab fa-twitter contactinfo social-icons"></i>
+                            <i class="fab fa-twitter  social-icons mr-4"></i>
                         </a>
                     </li>
 
-                    <li class="mr-1">
+                    <li>
                         <a href="#">
-                            <i class="fab fa-instagram contactinfo social-icons"></i>
+                            <i class="fab fa-instagram  social-icons mr-4"></i>
                         </a>
                     </li>
 
-                    <li class="mr-1">
+                    <li">
                         <a href="#">
-                            <i class="fab fa-vk contactinfo social-icons"></i>
+                            <i class="fab fa-vk  social-icons"></i>
                         </a>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@ $pdo = connect();
             <div class="col">
                 <div class="text-right slogan-shop mr-5">Dum Spiro, Spero!!! </div>
 
-                <h2 class="text-left text-white">APNEAshop - ВСЕ ДЛЯ ФРИДАЙВИНГА И ФРИДАЙВЕРОВ</h2>
+                <h2 class="text-left text-white">APNEA <sup> shop </sup> - ВСЕ ДЛЯ ФРИДАЙВИНГА И ФРИДАЙВЕРОВ</h2>
             </div>
         </div>
 
@@ -231,4 +231,4 @@ $pdo = connect();
         <hr class="hr-horizontal-gradient mt-0 mb-0">
     </header>
 
-    <main class="container-fluid">  
+    <main class="container-fluid main-container">  

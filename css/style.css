@@ -1,3 +1,4 @@
+
 .header-logo,
 .footer {
     background-image: url("../images/water-banner-header.jpg");
@@ -12,12 +13,21 @@ header{
 }
 
 .contactinfo {
-    font-size: 0.9em;
+    font-size:1em;
     color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
+
 .social-icons-contact{
-    font-size: 1.9em;
+    font-size: 3em;
+    color: #000;
+ 
+}
+
+.social-icons{
+    font-size: 1.5em;
     color: #000;
  
 }
@@ -53,10 +63,12 @@ header{
     background: linear-gradient(45deg, #01406b, #028eaf, #b0d5de);
 }
 
-main{
+.main-container{
     margin-top: 170px;
     margin-bottom: 50px;
-    padding-top: 10px;
+    padding: 10px 10%;
+    
+
 }
 
 .list-item-payment{
@@ -78,7 +90,7 @@ main{
 }
 
 .img-recom{
-    height: 25vh;
+    height: 15vh;
 }
 
 
