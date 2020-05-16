@@ -28,7 +28,7 @@ $pdo = connect();
 </head>
 
 <body>
-    <header class="container-fluid fixed-top header">
+    <header class="container-fluid header">
         <div class="row d-flex ml-5 mr-5 header-contact-info">
             <ul class="nav nav-pill col-sm-6">
                 <li class="mr-3 ">
@@ -127,6 +127,12 @@ $pdo = connect();
                                     </span>
                                 </a>
 
+                                <a class="dropdown-item" href="/template/delivery.php">
+                                    <span class="item-submenu">
+                                        Доставка и оплата
+                                    </span>
+                                </a>
+
                                 <a class="dropdown-item" href="#">
                                     <span class="item-submenu">
                                         Корзина
@@ -135,26 +141,13 @@ $pdo = connect();
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown mr-3">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="item-menu <?= ($requestUri=='/template/delivery.php' || $requestUri=='/template/about.php'? 'active':'') ?>">
-                                    О магазине
+
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/template/about.php">
+                                <span class="item-menu <?= ($requestUri=='/template/about.php' ? 'active':'') ?>">
+                                О магазине
                                 </span>
                             </a>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/template/delivery.php">
-                                    <span class="item-submenu">
-                                        Доставка и оплата
-                                    </span>
-                                </a>
-
-                                <a class="dropdown-item" href="/template/about.php">
-                                    <span class="item-submenu">
-                                        О магазине
-                                    </span>
-                                </a>
-                            </div>
                         </li>
 
                         <li class="nav-item mr-3">

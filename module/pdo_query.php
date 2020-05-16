@@ -53,16 +53,39 @@ function insertMessage(object $pdo,  array $data): bool
  * @param sting $table - таблица
  * @param string $where - условие
  * @param string $sort - сортировка
+ * @param string $limit - выборка
  * @return array - результат записи сообщения
  */
 
-function getTable(object $pdo, string $table, string $where="1", $sort=""): array
+function getTable(object $pdo, string $table, string $where="1", $sort="", $limit=""): array
 {
-    $sql = "SELECT * FROM `$table` WHERE $where" . ($sort==""?"": "ORDER BY $sort");
-                
+    $sql = "SELECT * FROM `$table` WHERE $where" . ($sort==""?"": " ORDER BY $sort") . ($limit==""?"": " LIMIT $limit") ;
+
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
    
     return $stmt->fetchAll();
 }
+
+/** 
+ * функция получения количества элементов в таблице
+ * @param object $pdo - объект соединения с БД
+ * @param sting $table - таблица
+ * @param string $where - условие
+ * @return int - количество элеиментов в таблице
+ */
+ function getCountElements(object $pdo, string $table, string $where="1"):int
+ {
+    $sql = "SELECT COUNT(*) as count FROM `$table` WHERE $where" ;
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute();
+    $arrCount = $stmt->fetchAll();
+    if (count($arrCount)==0){
+        return 0;
+    }
+    
+    return $arrCount[0]['count'];
+ }

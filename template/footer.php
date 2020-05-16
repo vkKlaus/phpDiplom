@@ -1,5 +1,5 @@
 </main>
-<footer class="container-fluid footer fixed-bottom text-center">
+<footer class="container-fluid footer text-center">
             <div>&copy;&emsp;Vladislav A. Klokol&emsp;2020</div>
         </footer>
         <!--!скрипты -->

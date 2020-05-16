@@ -47,6 +47,8 @@ if (isset($_POST['send'])) {
         $phone = $_POST['phone'];
         $message = $_POST['message'];
     }
+
+    unset($_POST);
 }
 ?>
 

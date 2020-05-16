@@ -1,10 +1,9 @@
-
 .header-logo,
 .footer {
     background-image: url("../images/water-banner-header.jpg");
 }
 
-header{
+header {
     background-color: #fff;
 }
 .slogan-shop {
@@ -13,29 +12,25 @@ header{
 }
 
 .contactinfo {
-    font-size:1em;
+    font-size: 1em;
     color: #000;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
-
-.social-icons-contact{
+.social-icons-contact {
     font-size: 3em;
     color: #000;
- 
 }
 
-.social-icons{
+.social-icons {
     font-size: 1.5em;
     color: #000;
- 
 }
 
 .navbar-nav {
     font-size: 1.3em;
 }
-
 
 .header-enter {
     color: #000;
@@ -46,9 +41,11 @@ header{
 .item-submenu {
     color: #000;
     font-weight: normal;
+    font-size: 0.8em;
 }
 
-.item-menu:hover, .item-submenu:hover {
+.item-menu:hover,
+.item-submenu:hover {
     border-bottom: 2px solid #028eaf;
 }
 
@@ -58,50 +55,100 @@ header{
 }
 
 .hr-horizontal-gradient {
-	height: 3px;
-	border: none;
+    height: 3px;
+    border: none;
     background: linear-gradient(45deg, #01406b, #028eaf, #b0d5de);
 }
 
-.main-container{
-    margin-top: 170px;
-    margin-bottom: 50px;
+.main-container {
     padding: 10px 10%;
-    
-
 }
 
-.list-item-payment{
+.list-item-payment {
     list-style: square;
 }
 
-.section-center{
+.section-center {
     width: 60%;
     background-color: rgb(161, 161, 161);
 }
 
-.section-left, .section-right{
+.section-left,
+.section-right {
     width: 20%;
     /* background-color: red; */
 }
 
-.carousel__is-new{
+.carousel__is-new {
     background-color: #fff;
 }
 
-.img-recom{
+.img-recom {
     height: 15vh;
 }
 
-.new-date{
+.new-date {
     font-size: 0.8em;
 }
-.new-title{
+.new-title {
     font-size: 1em;
 }
-.new-text{
+.new-text {
+    font-size: 0.7em;
+}
+.message-date {
+    font-size: 0.8em;
+}
+.message-visitor {
+    font-size: 0.8em;
+}
+.message-text {
+    font-size: 0.7em;
+}
+.message-response {
+    font-style: italic;
     font-size: 0.7em;
 }
 
+.card_container {
+    margin: 5px;
+    width: 45%;
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 2fr auto auto;
+    grid-template-areas:
+        "img img"
+        "name price"
+        "cart cart";
 
+    border: 1px solid #bebebe;
+    border-radius: 5%;
+}
 
+.card_img {
+    grid-area: img;
+    width: 90%;
+    align-self: center;
+    justify-self: center;
+    margin-top: 10px;
+    border-radius: 5%;
+    
+}
+.card_price {
+    grid-area: price;
+    text-align: center;
+    align-self: end;
+    font-style: italic;
+    font-weight: bold;
+}
+.card_btn {
+    grid-area: cart;
+    height: 40px;
+    margin: 5px 20px 5px 20px;
+}
+.card_name {
+    padding-top: 10px;;
+    grid-area: name;
+    text-align: center;
+    font-size: 0.7em;
+}
