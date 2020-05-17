@@ -61,7 +61,7 @@ header {
 }
 
 .main-container {
-    padding: 10px 10%;
+    padding: 10px 5%;
 }
 
 .list-item-payment {
@@ -151,4 +151,21 @@ header {
     grid-area: name;
     text-align: center;
     font-size: 0.7em;
+}
+
+.scroll_space{
+    overflow-y: auto;
+    height: 20vh;
+}
+
+.filterCatalog{
+    height: 60vh; 
+    
+}
+
+.filterPrice{
+    width: 50%;
+    text-align: right;
+    margin-bottom: 10px;
+    font-size: 0.8em;
 }

@@ -2,7 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
 
-$requestUri=$_SERVER['REQUEST_URI'];
+$requestUri = $_SERVER['REQUEST_URI'];
 
 $pdo = connect();
 ?>
@@ -21,9 +21,9 @@ $pdo = connect();
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
-   
+
     <link rel="stylesheet" href="/css/style.css">
-  
+
 
 </head>
 
@@ -50,7 +50,7 @@ $pdo = connect();
 
             <div class="col">
                 <ul class="nav navbar-pills text-right float-right">
-                <li>
+                    <li>
                         <a href="#">
                             <i class="fab fa-facebook  social-icons mr-4"></i>
                         </a>
@@ -78,7 +78,7 @@ $pdo = connect();
                         <a href="#">
                             <i class="fab fa-vk  social-icons"></i>
                         </a>
-                    </li>
+                        </li>
                 </ul>
             </div>
         </div>
@@ -107,7 +107,7 @@ $pdo = connect();
                     <ul class="navbar-nav">
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="/">
-                                <span class="item-menu <?= ($requestUri=='/' ? 'active':'') ?>">
+                                <span class="item-menu <?= ($requestUri == '/' ? 'active' : '') ?>">
                                     Главная <span class="sr-only">(current)</span>
                                 </span>
                             </a>
@@ -115,19 +115,19 @@ $pdo = connect();
 
                         <li class="nav-item dropdown mr-3">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="item-menu ">
+                                <span class="item-menu <?= ($requestUri == '/views/service/delivery.php' || $requestUri == '/views/catalog/' ? 'active' : '') ?>">
                                     Магазин
                                 </span>
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/views/catalog/">
                                     <span class="item-submenu">
                                         Каталог товара
                                     </span>
                                 </a>
 
-                                <a class="dropdown-item" href="/template/delivery.php">
+                                <a class="dropdown-item" href="/views/service/delivery.php">
                                     <span class="item-submenu">
                                         Доставка и оплата
                                     </span>
@@ -143,16 +143,16 @@ $pdo = connect();
 
 
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="/template/about.php">
-                                <span class="item-menu <?= ($requestUri=='/template/about.php' ? 'active':'') ?>">
-                                О магазине
+                            <a class="nav-link" href="/views/service/about.php">
+                                <span class="item-menu <?= ($requestUri == '/views/service/about.php' ? 'active' : '') ?>">
+                                    О магазине
                                 </span>
                             </a>
                         </li>
 
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="/template/contact.php">
-                                <span class="item-menu <?= ($requestUri=='/template/contact.php' ? 'active':'') ?>">
+                            <a class="nav-link" href="/views/service/contact.php">
+                                <span class="item-menu <?= ($requestUri == '/views/service/contact.php' ? 'active' : '') ?>">
                                     Контакты
                                 </span>
                             </a>
@@ -224,4 +224,4 @@ $pdo = connect();
         <hr class="hr-horizontal-gradient mt-0 mb-0">
     </header>
 
-    <main class="container-fluid main-container">  
+    <main class="container-fluid main-container">

@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
 $deliv = getTable($pdo,"delivery");
 ?>
@@ -32,7 +32,7 @@ $deliv = getTable($pdo,"delivery");
     <div class="col">
         <p><strong>Возможные способы оплаты</strong></p>
         <ul class="ml-2 list-payment">
-            <li class="list-item-payment mb-1">Оплата курьеру наличными при получении товара (только для Москвы и Подмосковья). К оплате мы принимаем только рубли. </li>
+            <li class="list-item-payment mb-1">Оплата курьеру наличными при получении товара (только для Москвы и Подмосковья). </li>
 
             <li class="list-item-payment mb-1">Оплата банковской картой курьеру при получении заказа ( выбирайте в Личном кабинете способ оплаты "Банковская карта").</li>
             <li class="list-item-payment mb-1">Наложенный платеж (оплата за товар при получении в Вашем городе. Но прибавится комиссия 3% за услугу!!!</li>
@@ -64,4 +64,4 @@ $deliv = getTable($pdo,"delivery");
 
 
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>

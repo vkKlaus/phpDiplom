@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
 $resultMes = '';
 $visitor = '';
@@ -155,4 +155,4 @@ if (isset($_POST['send'])) {
         </div>
     </div>
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>

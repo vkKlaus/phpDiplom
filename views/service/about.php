@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
     <h3> Cемь параметров, которые помогут написать работающий текст «О магазине».</h3>
@@ -58,4 +58,4 @@ require $_SERVER['DOCUMENT_ROOT'] . '/template/header.php';
 
     <p>И мы совсем НЕ против, а очень даже ЗА SEO-оптимизацию текста.Только давайте делать это грамотно.</p>
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/template/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>

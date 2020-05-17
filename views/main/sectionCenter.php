@@ -1,9 +1,9 @@
 <?php
 
-$is_recom = getTable($pdo, "product", "is_recommended");
+$is_recom = getTable($pdo, "product", "`is_recommended`");
 
 $page = 0;
-$countEl = getCountElements($pdo, "product", "is_new");
+$countEl = getCountElements($pdo, "product", "`is_new`");
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
