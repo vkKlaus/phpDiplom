@@ -4,6 +4,8 @@ require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
 
+session_start();
+
 $pdo = connect();
 ?>
 

@@ -1,8 +1,3 @@
-<?php
-
-$messages = getTable($pdo, "message");
-
-?>
 <div class="col-3">
     <strong>Вопросы, отзывы. мнения</strong>
 

@@ -1,34 +1,8 @@
-<?php
-
-$is_recom = getTable($pdo, "product", "`is_recommended`");
-
-$page = 0;
-$countEl = getCountElements($pdo, "product", "`is_new`");
-
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-}
-
-$is_new = getTable($pdo, "product", "is_new", "", "$page, 4");
-
-
-$prevPage = $page - 4;
-if ($prevPage < 0) {
-    $prevPage = 0;
-}
-
-$nextPage = $page + 4;
-
-if ($nextPage > $countEl - 4) {
-    $nextPage = $countEl - 4;
-}
-?>
-
 <div class="col-6">
     <h2 class="text-center text-primary">Nовые поступления</h2>
 
-        <?php for ($i = 0; $i < count($is_new); $i) {    ?>
-            <div class="d-flex flex-row">
+    <?php for ($i = 0; $i < count($is_new); $i) {    ?>
+        <div class="d-flex flex-row">
             <?php for ($j = 1; $j <= 2; $j++) { ?>
                 <div class="card_container">
                     <img src="/images/products/<?= $is_new[$i]['id'] ?>.jpg" class="card_img" alt="...">
@@ -48,38 +22,37 @@ if ($nextPage > $countEl - 4) {
                 } else {
                 }
             } ?>
-    </div>
-
-        <?php } ?>
-
-
-
-<nav aria-label="Page navigation ">
-    <ul class="pagination justify-content-center pagination-lg">
-        <li class="page-item">
-            <a class="page-link" href="/?page=<?= $prevPage ?>" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        <li class="page-item">
-            <a class="page-link" href="/?page=<?= $nextPage ?>" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-
-
-<h2 class="text-center text-primary">Rекомендуем</h2>
-<div class="owl-carousel owl-theme">
-    <?php foreach ($is_recom as $item_recom) { ?>
-        <div class="item">
-            <a href="#" data="<?= $item_recom['id'] ?>">
-                <img src="/images/products/<?= $item_recom['id'] ?>.jpg" alt="<?= $item_recom['name'] ?>" class="img-recom">
-                <p class="mt-3 text-primary"><?= $item_recom['name'] ?></p>
-            </a>
         </div>
-    <? } ?>
-</div>
+    <?php } ?>
+
+
+
+    <nav aria-label="Page navigation ">
+        <ul class="pagination justify-content-center pagination-lg">
+            <li class="page-item">
+                <a class="page-link" href="/?page=<?= $prevPage ?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="/?page=<?= $nextPage ?>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <h2 class="text-center text-primary">Rекомендуем</h2>
+    <div class="owl-carousel owl-theme">
+        <?php foreach ($is_recom as $item_recom) { ?>
+            <div class="item">
+                <a href="#" data="<?= $item_recom['id'] ?>">
+                    <img src="/images/products/<?= $item_recom['id'] ?>.jpg" alt="<?= $item_recom['name'] ?>" class="img-recom">
+                    <p class="mt-3 text-primary"><?= $item_recom['name'] ?></p>
+                </a>
+            </div>
+        <? } ?>
+    </div>
 </div>

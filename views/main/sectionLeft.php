@@ -1,6 +1,3 @@
-<?php
-$news = getTable($pdo, "news","", "`date`");
-?>
 <div class="col-3">
     <strong>Новости</strong>
 
