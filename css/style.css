@@ -61,7 +61,8 @@ header {
 }
 
 .main-container {
-    padding: 10px 5%;
+    padding: 1% 5%;
+    min-height: 82vh;
 }
 
 .list-item-payment {
@@ -96,6 +97,7 @@ header {
 .new-text {
     font-size: 0.7em;
 }
+
 .message-date {
     font-size: 0.8em;
 }
@@ -168,4 +170,14 @@ header {
     text-align: right;
     margin-bottom: 10px;
     font-size: 0.8em;
+}
+
+.new-date {
+    font-size: 1em;
+}
+.new-title {
+    font-size: 1.3em;
+}
+.new-text {
+    font-size: 1.1em;
 }

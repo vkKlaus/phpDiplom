@@ -1,5 +1,4 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/module/helpers.php';
 
 /**
  * функция записи сообщения посетителя

@@ -7,6 +7,7 @@ $priceCatalog = getPrice($pdo);
 
 if (isset($_POST['filterSend'])){
     $post=$_POST;
+    $_GET['page']=0;
 }elseif(isset($_POST['filterReset'])){
     $post=[];
     unset($_SESSION['post']);
@@ -21,36 +22,34 @@ if (isset($_POST['filterSend'])){
 //каталог
 $strFilter = "availability";
 
-if (isset($_POST['filterSend'])) {
+if (isset($post['filterSend'])) {
 
-    if (isset($_POST['category']) && (count($_POST['category']) != 0)) {
+    if (isset($post['category']) && (count($post['category']) != 0)) {
         $strFilter .= ($strFilter == "" ? "" : " AND ") .  "(`category_id` IN (";
-        foreach ($_POST['category'] as $elem) {
+        foreach ($post['category'] as $elem) {
             $strFilter .= "$elem, ";
         }
         $strFilter .= "))";
     }
 
-    if (isset($_POST['brand']) && (count($_POST['brand']) != 0)) {
+    if (isset($post['brand']) && (count($post['brand']) != 0)) {
         $strFilter .= ($strFilter == "" ? "" : " AND ") . "(`brand` IN (";
-        foreach ($_POST['brand'] as $elem) {
+        foreach ($post['brand'] as $elem) {
             $strFilter .= "$elem, ";
         }
         $strFilter .= "))";
     }
     $strFilter = str_replace(", ))", "))", $strFilter);
 
-    $priceMin = $_POST['priceMin'];
+    $priceMin = $post['priceMin'];
 
-    $priceMax = $_POST['priceMax'];
+    $priceMax = $post['priceMax'];
 
     $strFilter .= ($strFilter == "" ? "" : " AND ") .
         "(`price` >= $priceMin AND `price` <= $priceMax)";
 
-     $_SESSION['post']=$_POST;   
+     $_SESSION['post']=$post;   
 }
-
-var_dump($strFilter);
 
 $page = 0;
 $countEl = getCountElements($pdo, "product", "availability");

@@ -1,6 +1,7 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/module/helpers.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
 
@@ -124,13 +125,13 @@ $pdo = connect();
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="/views/catalog/">
-                                    <span class="item-submenu">
+                                    <span class="item-submenu  <?= ($requestUri == '/views/catalog/' ? 'active' : '') ?>">
                                         Каталог товара
                                     </span>
                                 </a>
 
                                 <a class="dropdown-item" href="/views/service/delivery.php">
-                                    <span class="item-submenu">
+                                    <span class="item-submenu  <?= ($requestUri == '/views/service/delivery.php'  ? 'active' : '') ?>">
                                         Доставка и оплата
                                     </span>
                                 </a>
@@ -143,14 +144,35 @@ $pdo = connect();
                             </div>
                         </li>
 
-
-                        <li class="nav-item mr-3">
-                            <a class="nav-link" href="/views/service/about.php">
-                                <span class="item-menu <?= ($requestUri == '/views/service/about.php' ? 'active' : '') ?>">
-                                    О магазине
+                        <li class="nav-item dropdown mr-3">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="item-menu <?= ($requestUri == '/views/service/about.php' ||  $requestUri == '/views/service/news.php' || $requestUri == '/views/service/messages.php' ? 'active' : '') ?>">
+                                    Информация
                                 </span>
                             </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/views/service/news.php">
+                                    <span class="item-submenu <?= ($requestUri == '/views/service/news.php' ? 'active' : '') ?>">
+                                        Новости
+                                    </span>
+                                </a>
+
+                                <a class="dropdown-item" href="/views/service/messages.php">
+                                    <span class="item-submenu <?= ($requestUri == '/views/service/messages.php' ? 'active' : '') ?>">
+                                        Вопросы, отзывы, сообщения
+                                    </span>
+                                </a>
+
+                                <a class="dropdown-item" href="/views/service/about.php">
+                                    <span class="item-menu <?= ($requestUri == '/views/service/about.php' ? 'active' : '') ?>">
+                                        О магазине
+                                    </span>
+                                </a>
+                            </div>
                         </li>
+
+
 
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="/views/service/contact.php">

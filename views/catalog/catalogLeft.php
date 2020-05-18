@@ -43,6 +43,6 @@
         </legend>
 
         <input type="submit" id="filter-submit" class="btn btn-info btn-lg float-right mt-5" name="filterSend" value="Применить">
-        <input type="submit" id="filter-reset" class="btn btn-info btn-lg float-right mt-5" name="filterReset" value="Очистить">
+        <input type="submit" id="filter-reset" class="btn btn-info btn-lg float-left mt-5" name="filterReset" value="Очистить">
     </form>
 </div>

@@ -1,5 +1,5 @@
 <div class="col-3">
-    <strong>Вопросы, отзывы. мнения</strong>
+    <strong>Вопросы, отзывы, сообщения</strong>
 
     <?php
     foreach ($messages as $message) { ?>

@@ -1,5 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+resetFilterSession();
 
 $resultMes = '';
 $visitor = '';

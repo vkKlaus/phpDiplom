@@ -18,7 +18,7 @@ function sentMail(array $data): bool
     $Body .= $name;
     $Body .= "n";
 
-    $Body .= "Email: "; 
+    $Body .= "Email: ";
     $Body .= $email;
     $Body .= "n";
 
@@ -29,4 +29,14 @@ function sentMail(array $data): bool
     //  return = mail($EmailTo, $Subject, $Body, "From:" . $email);
 
     return true;
+}
+
+/**Очистка сессии-фильтр
+ * 
+ */
+function resetFilterSession()
+{
+    if (isset($_SESSION['post'])) {
+        unset($_SESSION['post']);
+    }
 }

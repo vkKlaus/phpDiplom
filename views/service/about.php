@@ -1,5 +1,6 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+resetFilterSession();
 ?>
 
     <h3> Cемь параметров, которые помогут написать работающий текст «О магазине».</h3>

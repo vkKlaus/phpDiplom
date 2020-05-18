@@ -1,5 +1,8 @@
 <?php 
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+
+resetFilterSession();
+
 //левая секция
 $news = getTable($pdo, "news","", "`date`"); 
 //центральная секция
