@@ -40,3 +40,11 @@ function resetFilterSession()
         unset($_SESSION['post']);
     }
 }
+
+/**Поместить в корзину
+ * @param int - идентификатор товара
+ */
+
+ function inBasket(int $id){
+    $_SESSION['basket'][]=$id;
+ }

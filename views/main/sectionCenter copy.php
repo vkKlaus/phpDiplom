@@ -9,9 +9,7 @@
 
                     <p class="card_price"><?= $is_new[$i]['price'] . '$'  ?></p>
 
-                    <form  method="POST">
-                        <button type="submit" class = "card_btn btn btn-primary" name="inBasket" value= "<?= $is_new[$i]['id']?>"><i class="fa fa-shopping-cart"></i></button>
-                    </form>
+                    <a href="/?id=<?= $is_new[$i]['id']?>&type=inBsk" class="btn btn-primary card_btn"><i class="fa fa-shopping-cart"></i></a>
 
                     <a href="/?id=<?= $is_new[$i]['id']?>&type=view" class="card_name"><?= $is_new[$i]['name'] ?></a>
 
@@ -55,11 +53,11 @@
                    
                     <a href="/?id=<?= $item_recom['id']?>&type=view" class="name-recom"><?= $item_recom['name'] ?></a>
 
-                    <div class="price-recom"><?= $item_recom['price'] ?>$</div>
+                    <div class="price-recom"><?= $item_recom['price'] ?></div>
         
-                    <form  method="POST">
-                        <button type="submit" class = "card_btn btn btn-primary" name="inBasket" value= "<?= $item_recom['id']?>"><i class="fa fa-shopping-cart"></i></button>
-                    </form>
+                    <a href="/?id=<?= $item_recom['id']?>&type=inBsk" class="btn btn-primary card_btn basket-recom">
+                        <i class="fa fa-shopping-cart"></i>
+                    </a>
             
             </div>
         <? } ?>

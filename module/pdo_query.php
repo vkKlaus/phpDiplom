@@ -64,6 +64,7 @@ function getTable(object $pdo, string $table, string $where = "1", $sort = "", $
         . ($sort == "" ? "" : " ORDER BY $sort")
         . ($limit == "" ? "" : " LIMIT $limit");
 
+    
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
@@ -82,6 +83,7 @@ function getCountElements(object $pdo, string $table, string $where = "1"): int
 {
     $sql = "SELECT COUNT(*) as count FROM `$table` WHERE $where";
 
+ 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();

@@ -112,49 +112,6 @@ header {
     font-size: 0.7em;
 }
 
-.card_container {
-    margin: 5px;
-    width: 45%;
-    display: grid;
-    grid-template-columns: 7fr 3fr;
-    grid-template-rows: 2fr auto auto;
-    grid-template-areas:
-        "img img"
-        "name price"
-        "cart cart";
-
-    border: 1px solid #bebebe;
-    border-radius: 5%;
-}
-
-.card_img {
-    grid-area: img;
-    width: 90%;
-    align-self: center;
-    justify-self: center;
-    margin-top: 10px;
-    border-radius: 5%;
-    
-}
-.card_price {
-    grid-area: price;
-    text-align: center;
-    align-self: end;
-    font-style: italic;
-    font-weight: bold;
-}
-.card_btn {
-    grid-area: cart;
-    height: 40px;
-    margin: 5px 20px 5px 20px;
-}
-.card_name {
-    padding-top: 10px;;
-    grid-area: name;
-    text-align: center;
-    font-size: 0.7em;
-}
-
 .scroll_space{
     overflow-y: auto;
     height: 20vh;
@@ -180,4 +137,92 @@ header {
 }
 .new-text {
     font-size: 1.1em;
+}
+
+.item-recom {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 3fr 2fr 1fr;
+    grid-template-areas:
+        "img img"
+        "name name"
+        "price cart";
+
+
+}
+
+.img-recom {
+    grid-area: img;
+    width: 90%;
+  
+
+    
+}
+
+.name-recom {
+    grid-area: name;
+
+}
+
+.price-recom {
+    grid-area: price;
+
+}
+
+
+.basket-recom {
+    grid-area: cart;
+
+}
+
+
+
+.card_container {
+    margin: 5px;
+    width: 35%;
+
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 2fr auto auto;
+    grid-template-areas:
+        "img img"
+        "name name"
+        "cart price";
+
+    border: 1px solid #dddddd;
+    border-radius: 5%;
+}
+
+.card_img {
+    grid-area: img;
+    width:50%;
+    align-self: center;
+    justify-self: center;
+    border-radius: 5%;
+    margin-top: 5px;
+    
+}
+.card_price {
+    grid-area: price;
+    text-align: center;
+    align-self: start;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+.card_btn {
+    grid-area: cart;
+    margin-left: 1vw;
+    margin-bottom: 1vh;
+    width: 5vw;
+
+}
+.card_name {
+    padding: 10px;
+
+    grid-area: name;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
 }

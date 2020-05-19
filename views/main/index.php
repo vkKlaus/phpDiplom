@@ -3,19 +3,25 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
 resetFilterSession();
 
+if (isset($_POST['inBasket'])){
+    inBasket($_POST['inBasket']);
+}
 //левая секция
 $news = getTable($pdo, "news","", "`date`"); 
 //центральная секция
+
+
 $is_recom = getTable($pdo, "product", "`is_recommended`");
 
 $page = 0;
 $countEl = getCountElements($pdo, "product", "`is_new`");
 
+
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 
-$is_new = getTable($pdo, "product", "is_new", "", "$page, 4");
+$is_new = getTable($pdo, "product", "is_new", "", "$page, 6");
 
 
 $prevPage = $page - 4;

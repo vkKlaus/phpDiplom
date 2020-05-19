@@ -52,14 +52,14 @@ if (isset($post['filterSend'])) {
 }
 
 $page = 0;
-$countEl = getCountElements($pdo, "product", "availability");
+$countEl = getCountElements($pdo, "product", $strFilter);
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 
 
-$product = getTable($pdo, "product", $strFilter, "", "$page, 12");
+$product = getTable($pdo, "product", $strFilter, "", "". ($page <0 ? 0: $page).", 12");
 
 
 $prevPage = $page - 12;
