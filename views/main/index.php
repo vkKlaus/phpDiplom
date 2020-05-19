@@ -24,15 +24,15 @@ if (isset($_GET['page'])) {
 $is_new = getTable($pdo, "product", "is_new", "", "$page, 6");
 
 
-$prevPage = $page - 4;
+$prevPage = $page - 6;
 if ($prevPage < 0) {
     $prevPage = 0;
 }
 
-$nextPage = $page + 4;
+$nextPage = $page + 6;
 
-if ($nextPage > $countEl - 4) {
-    $nextPage = $countEl - 4;
+if ($nextPage > $countEl - 6) {
+    $nextPage = $countEl - 6;
 }
 //правая секция
 $messages = getTable($pdo, "message");

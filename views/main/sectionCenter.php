@@ -9,11 +9,11 @@
 
                     <p class="card_price"><?= $is_new[$i]['price'] . '$'  ?></p>
 
-                    <form  method="POST">
-                        <button type="submit" class = "card_btn btn btn-primary" name="inBasket" value= "<?= $is_new[$i]['id']?>"><i class="fa fa-shopping-cart"></i></button>
+                    <form method="POST">
+                        <button type="submit" class="card_btn btn btn-primary" name="inBasket" value="<?= $is_new[$i]['id'] ?>"><i class="fa fa-shopping-cart"></i></button>
                     </form>
 
-                    <a href="/?id=<?= $is_new[$i]['id']?>&type=view" class="card_name"><?= $is_new[$i]['name'] ?></a>
+                    <a href="/?id=<?= $is_new[$i]['id'] ?>&type=view" class="card_name"><?= $is_new[$i]['name'] ?></a>
 
                 </div>
             <?php
@@ -45,22 +45,24 @@
         </ul>
     </nav>
 
+    <br>
+    <hr>
 
     <h2 class="text-center text-primary">Rекомендуем</h2>
     <div class="owl-carousel owl-theme">
         <?php foreach ($is_recom as $item_recom) { ?>
             <div class="item-recom">
-             
-                    <img src="/images/products/<?= $item_recom['id'] ?>.jpg" alt="<?= $item_recom['name'] ?>" class="img-recom">
-                   
-                    <a href="/?id=<?= $item_recom['id']?>&type=view" class="name-recom"><?= $item_recom['name'] ?></a>
 
-                    <div class="price-recom"><?= $item_recom['price'] ?>$</div>
-        
-                    <form  method="POST">
-                        <button type="submit" class = "card_btn btn btn-primary" name="inBasket" value= "<?= $item_recom['id']?>"><i class="fa fa-shopping-cart"></i></button>
-                    </form>
-            
+                <img src="/images/products/<?= $item_recom['id'] ?>.jpg" alt="<?= $item_recom['name'] ?>" class="img-recom">
+
+                <a href="/?id=<?= $item_recom['id'] ?>&type=view" class="name-recom"><?= $item_recom['name'] ?></a>
+
+                <div class="price-recom"><?= $item_recom['price'] ?>$</div>
+
+                <form method="POST">
+                    <button type="submit" class="card_btn btn btn-primary" name="inBasket" value="<?= $item_recom['id'] ?>"><i class="fa fa-shopping-cart"></i></button>
+                </form>
+
             </div>
         <? } ?>
     </div>
