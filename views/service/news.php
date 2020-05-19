@@ -22,4 +22,4 @@ $news = getTable($pdo, "news","", "`date`");
         </div>
         <br>
     <?php } ?>
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

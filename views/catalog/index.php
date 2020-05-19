@@ -81,4 +81,4 @@ if ($nextPage > $countEl - 12) {
 </div>
 
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

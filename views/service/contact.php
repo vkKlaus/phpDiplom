@@ -131,21 +131,21 @@ if (isset($_POST['send'])) {
             <p><strong>Задайте вопрос или оставьте сообщение и Вам ответят</strong></p>
 
             <form method="POST">
-                <label for="name" class="h5">&#128100; Имя</label>
+                <label for="name" class="h5"><i class="fas fa-user"></i> Имя</label>
 
                 <input type="text" class="form-control" id="name" required name="visitor" value="<?= $visitor ?>">
 
 
-                <label for="email" class="h5">&#128231; Email</label>
+                <label for="email" class="h5"> <i class="fa fa-at"></i> Email</label>
 
                 <input type="email" class="form-control" id="email" required name="email" value="<?= $email ?>">
 
-                <label for="phone" class="h5">&#128222; Телефон</label>
+                <label for="phone" class="h5"><i class="fa fa-phone-alt"></i> Телефон</label>
 
                 <input type="tel" class="form-control" id="phone" name="phone" value="<?= $phone ?>">
 
 
-                <label for="message" class="h5 ">&#128221; Сообщение</label>
+                <label for="message" class="h5 "><i class="fas fa-sticky-note"></i> Сообщение</label>
 
                 <textarea id="message" class="form-control" rows="5" required name="message"> <?= $message ?></textarea>
 
@@ -156,4 +156,4 @@ if (isset($_POST['send'])) {
         </div>
     </div>
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

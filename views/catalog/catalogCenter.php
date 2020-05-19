@@ -9,10 +9,11 @@
 
                     <p class="card_price"><?= $product[$i]['price'] . '$'  ?></p>
 
-                    <a href="#" class="btn btn-primary card_btn"><i class="fa fa-shopping-cart"></i></a>
-
-                    <p class="card_name"><?= $product[$i]['name'] ?></p>
-
+                    <form method="POST">
+                        <button type="submit" class="card_btn btn btn-primary" name="inBasket" value="<?= $product[$i]['id'] ?>"><i class="fa fa-shopping-cart"></i></button>
+                    </form>
+   
+                    <a href="/views/product/?idProduct=<?= $product[$i]['id'] ?>" class="card_name"><?= $product[$i]['name'] ?></a>
                 </div>
             <?php
                 $i++;

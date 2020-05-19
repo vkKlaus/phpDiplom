@@ -23,4 +23,4 @@ foreach ($messages as $message) { ?>
     <hr>
 <?php } ?>
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

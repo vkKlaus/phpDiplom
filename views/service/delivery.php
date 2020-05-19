@@ -65,4 +65,4 @@ $deliv = getTable($pdo,"delivery");
 
 
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

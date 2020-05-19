@@ -59,4 +59,4 @@ resetFilterSession();
 
     <p>И мы совсем НЕ против, а очень даже ЗА SEO-оптимизацию текста.Только давайте делать это грамотно.</p>
 
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php' ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php'; 

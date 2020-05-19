@@ -8,6 +8,14 @@ $requestUri = $_SERVER['REQUEST_URI'];
 session_start();
 
 $pdo = connect();
+
+if (isset($_POST['inBasket'])){
+    inBasket($_POST['inBasket']);
+}
+
+if (isset($_SESSION['basket'])){
+    $inBasket=count($_SESSION['basket']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -228,7 +236,7 @@ $pdo = connect();
                     <li class="mr-5"><a href="/cart">
                             <span class="header-enter">
                                 <i class="fa fa-shopping-cart"></i>
-                                Корзина(<span id="cart-count">0</span>)
+                                Корзина(<span id="cart-count"><?= $inBasket?></span>)
                             </span>
                         </a>
                     </li>

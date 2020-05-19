@@ -46,5 +46,8 @@ function resetFilterSession()
  */
 
  function inBasket(int $id){
+    if (isset($_SESSION['basket']) && in_array($id,$_SESSION['basket'])){
+        return false;
+    }
     $_SESSION['basket'][]=$id;
  }
