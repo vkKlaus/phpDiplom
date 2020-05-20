@@ -2,6 +2,8 @@
 
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
+resetFilterSession();
+
 if (isset($_GET['idProduct'])) {
     $products = getTable($pdo, "product", "id=" . $_GET['idProduct']);
     if (count($products) != 0) {

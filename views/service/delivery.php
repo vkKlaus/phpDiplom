@@ -2,7 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 resetFilterSession();
 
-$deliv = getTable($pdo,"delivery");
+$deliv = getTable($pdo,"delivery","",'`cost`');
 ?>
 <div class="row d-flex flex-row">
     <div class="col ml-5 mr-5">

@@ -9,13 +9,16 @@ session_start();
 
 $pdo = connect();
 
-if (isset($_POST['inBasket'])){
+if (isset($_POST['inBasket'])) {
     inBasket($_POST['inBasket']);
 }
 
-if (isset($_SESSION['basket'])){
-    $inBasket=count($_SESSION['basket']);
+if (isset($_SESSION['basket'])) {
+    $inBasket = count($_SESSION['basket']);
+} else {
+    $inBasket = 0;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +147,7 @@ if (isset($_SESSION['basket'])){
                                     </span>
                                 </a>
 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/views/order/">
                                     <span class="item-submenu">
                                         Корзина
                                     </span>
@@ -233,10 +236,11 @@ if (isset($_SESSION['basket'])){
 
             <div class="col-sm-4 align-self-center">
                 <ul class="nav navbar-nav float-right d-flex flex-row">
-                    <li class="mr-5"><a href="/cart">
+                    <li class="mr-5">
+                        <a href="/views/order/">
                             <span class="header-enter">
                                 <i class="fa fa-shopping-cart"></i>
-                                Корзина(<span id="cart-count"><?= $inBasket?></span>)
+                                Корзина(<span id="cart-count"><?= $inBasket ?></span>)
                             </span>
                         </a>
                     </li>

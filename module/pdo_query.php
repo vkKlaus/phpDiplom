@@ -64,7 +64,6 @@ function getTable(object $pdo, string $table, string $where = "1", $sort = "", $
         . ($sort == "" ? "" : " ORDER BY $sort")
         . ($limit == "" ? "" : " LIMIT $limit");
 
-    
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
