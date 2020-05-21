@@ -46,13 +46,14 @@ if (isset($_SESSION['basket'])) {
     }
 }
 
+
 ?>
 
 <div>
     <h2 class="text-left text-primary">Коpзина</h2>
     <br>
 
-    <form method="POST" class="container">
+    <form method="POST" class="container" action="<?= '/views/order/adres.php' ?>">
         <div class="row">
             <div class="col-8">
                 <table class="table  table-striped">
@@ -63,6 +64,7 @@ if (isset($_SESSION['basket'])) {
                             <th scope="col-1">цена</th>
                             <th scope="col-1">количество</th>
                             <th scope="col-1">сумма</th>
+                            <th scope="col-1">удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,15 +73,27 @@ if (isset($_SESSION['basket'])) {
                         foreach ($_SESSION['order'] as $key => $item) { ?>
 
                             <tr>
-                                <th scope="row col"><?= $key + 1 ?>.</th>
+                                <th scope="row col">
+                                    <?= $key + 1 ?>.
+                                </th>
 
-                                <td class="col text-left"><?= $item['name'] ?></td>
+                                <td class="col text-left">
+                                    <?= $item['name'] ?>
+                                </td>
 
-                                <td class="col text-right"><?= $item['price'] ?></td>
+                                <td class="col text-right" id="<?= $item['id'] ?>_price">
+                                    <?= $item['price'] ?>
+                                </td>
 
-                                <td><input type="number" class="text-right" value="<?= $item['count'] ?>"></td>
+                                <td>
+                                    <input type="number" class="text-right count" id="<?= $item['id'] ?>" name="<?= $item['id'] ?>_count" value="<?= $item['count'] ?>">
+                                </td>
 
-                                <td class="col text-right"><?= ($item['count'] * $item['price']) ?></td>
+                                <td class="col text-right sum" id="<?= $item['id'] ?>_sum">
+                                    <?= ($item['count'] * $item['price']) ?>
+                                </td>
+
+                                <td class="col text-center"><a href="/views/order/?del=<?= $item['id'] ?>"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
 
                         <?php
@@ -88,7 +102,8 @@ if (isset($_SESSION['basket'])) {
 
                         <tr class="bg-secondary">
                             <td colspan="4" class="h4 text-right">Сумма заказа</td>
-                            <td class="h4 text-right "><?= $total ?> </td>
+                            <td class="h4 text-right " id="total"><?= $total ?> </td>
+                            <td> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -110,7 +125,7 @@ if (isset($_SESSION['basket'])) {
                     <?php
                     foreach ($deliv as $key => $element) { ?>
                         <tr>
-                            <th scope="row"><input type="radio" name="deliv" value="<?= $element['id'] ?>"></th>
+                            <th scope="row"><input type="radio" id="<?= $element['id'] ?>" class="deliv" name="deliv" value="<?= $element['id'] ?>" data="<?=$element['cost'] ?>"></th>
 
                             <td><?= $element['name'] ?></td>
 
@@ -123,9 +138,7 @@ if (isset($_SESSION['basket'])) {
 
         <div class="row mt-5">
             <div class="col d-flex justify-content-end">
-                <button type="submit" class="btn btn-info">
-                    Оформить заказ
-                </button>
+                <input type="submit" name="submit" class="btn btn-info" value="Оформить заказ">
             </div>
         </div>
 
