@@ -18,7 +18,27 @@ if (isset($_SESSION['basket'])) {
 } else {
     $inBasket = 0;
 }
+// if (isset($_GET['del'])) {
+//     $delElement = $_GET['del'];
 
+//     if (isset($_SESSION['basket'])) {
+//         $key = array_search($delElement, $_SESSION['basket']);
+ 
+//         if ($key >= 0) {             
+//                 unset($_SESSION['basket'][$key]);
+//         }
+
+//         $inBasket=count($_SESSION['basket']);
+//     }
+   
+//     if (isset($_SESSION['order'])) {
+//     }
+//     foreach ($_SESSION['order'] as $key => $item) {
+//         if ($item['id'] == $delElement) {
+//             unset($_SESSION['order'][$key]);
+//         }
+//     }
+// }
 ?>
 
 <!DOCTYPE html>

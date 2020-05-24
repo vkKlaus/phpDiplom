@@ -39,6 +39,11 @@ function resetFilterSession()
     if (isset($_SESSION['post'])) {
         unset($_SESSION['post']);
     }
+
+    if (isset($_SESSION['sort'])) {
+        $_SESSION['sort']['name']='ASC';
+        $_SESSION['sort']['cost']='';
+    }
 }
 
 /**Поместить в корзину
