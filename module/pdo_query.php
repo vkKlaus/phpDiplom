@@ -82,7 +82,7 @@ function getCountElements(object $pdo, string $table, string $where = "1"): int
 {
     $sql = "SELECT COUNT(*) as count FROM `$table` WHERE $where";
 
- 
+
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
@@ -109,4 +109,82 @@ function getPrice(object $pdo, string $where = "1"): array
     $stmt->execute();
 
     return $stmt->fetchAll();
+}
+
+/**
+ *  @param object $pdo - объект соединения с БД
+ * 
+ */
+function pdoSaveOrder(object $pdo)
+{
+    $user = getTable($pdo, 'users', '`email`="' . $_SESSION['user']['email'] . '"');
+
+    if (!$user) {
+        $userID = (int) insertUser($pdo);
+    } else {
+        $userID = $user[0]['id'];
+    }
+}
+/**
+ * добавление пользователя
+ *  @param object $pdo - объект соединения с БД
+ *  
+ * 
+ */
+function insertUser(object $pdo)
+{
+    foreach ($_SESSION['user'] as $key => $value) {
+        $_SESSION['user'][$key] = htmlspecialchars($value);
+    }
+
+    $sql = 'INSERT INTO `users`
+                ( 
+                    `user`, 
+                    `email`, 
+                    `phone`,
+                    `password`,
+                    `flag_email_notification`,
+                    `flag_active`,
+                    `aders_dev`
+                )
+             VALUES 
+                (
+                    :user, 
+                    :email, 
+                    :phone,
+                    :password,
+                    :flag_email_notification,
+                    :flag_active,
+                    :aders_dev
+                )';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute(
+        [
+            'user' => $_SESSION['user']['visitor'],
+            'email' => $_SESSION['user']['email'],
+            'phone' => $_SESSION['user']['phone'],
+            'password' => isset($_SESSION['user']['password']) ? $_SESSION['user']['password'] : 'false',
+            'flag_email_notification' => isset($_SESSION['user']['flag_email_notification']) ? $_SESSION['user']['flag_email_notification'] : '0',
+            'flag_active' => 1,
+            'aders_dev' => isset($_SESSION['user']['message']) ? $_SESSION['user']['message'] : 'false',
+        ]
+    );
+
+    return $pdo->lastInsertId('users');
+}
+
+/**
+ * последний id
+ * @param object $pdo - объект соединения с БД
+ * @param string $pdo - объект соединения с БД
+ */
+function lastID(object $pdo, string $table)
+{
+    $sql = "SELECT LAST_INSERTED_ID()";
+
+    $stmt = $pdo->prepare($sql);
+    
+    return $stmt->execute();
 }

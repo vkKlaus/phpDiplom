@@ -4,6 +4,8 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
 resetFilterSession();
 
+$error='/';
+
 if (isset($_POST['saveOrder'])) {
     $_SESSION['deliv'] = isset($_POST['deliv']) ? $_POST['deliv'] : -1;
     $deliv = getTable($pdo, "delivery", "`id`=" . $_POST['deliv'], '`cost`');
@@ -12,11 +14,39 @@ if (isset($_POST['saveOrder'])) {
     $_SESSION['user']['phone'] = isset($_POST['phone']) ? $_POST['phone'] : '';
     $_SESSION['user']['message'] = isset($_POST['message']) ? $_POST['message'] : '';
 }
+if (isset($_GET['save']) && $_GET['save']){
+   
+   
+
+    if (!isset($_SESSION['order'])){
+        $error.=' ошибка данных заказа /';
+    }
+
+    if (!isset($_SESSION['deliv'])){
+        $error.=' ошибка данных доставки / ';
+    }
+    if (!isset($_SESSION['user'])){
+        $error.=' ошибка данных покупателя / ';
+    }
+
+    if($error =='/'){
+       
+        $deliv = getTable($pdo, "delivery", "`id`=" .  $_SESSION['deliv'], '`cost`');
+        
+        $error=pdoSaveOrder($pdo);
+    }
+    
+    
+    
+   
+};
+
 
 
 ?>
 
 <div class="row">
+    <?=($error == '/')?'':$error?>
     <div class="col-6">
         <p class="text-primary h3"><strong>Ваш заказ:</strong></p>
         <table class="table  table-striped">
@@ -78,7 +108,7 @@ if (isset($_POST['saveOrder'])) {
         <div class="h4 ml-5"><i class="fas fa-angle-right"></i>&nbsp;стоимость: <?= $deliv[0]['cost'] ?></div>
         <hr>
         <p class="text-primary h3"><strong>Адрес доставки:</strong></p>
-        <div class="h4 ml-5"><i class="fas fa-angle-right"></i>&nbsp;<?= $_POST['message'] ?></div>
+        <div class="h4 ml-5"><i class="fas fa-angle-right"></i>&nbsp;<?= $_SESSION['user']['message'] ?></div>
 
     </div>
 </div>
@@ -96,7 +126,7 @@ if (isset($_POST['saveOrder'])) {
     <div class="col-6">
         <p class="text-primary h3"><strong>Правильно</strong></p>
         <a class="btn btn-primary btn-lg pl-5 pr-5" href="/views/order/" role="button">Нет</a>
-        <a class="btn btn-primary btn-lg active pl-5 pr-5" href="#/?save=true" role="button">Да</a>
+        <a class="btn btn-primary btn-lg active pl-5 pr-5" href="/views/order/saveOrder.php?save=true" role="button">Да</a>
     </div>
 </div>
 
