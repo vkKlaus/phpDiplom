@@ -25,15 +25,15 @@ if (isset($_GET['save']) && $_GET['save']){
     if (!isset($_SESSION['deliv'])){
         $error.=' ошибка данных доставки / ';
     }
+    else{
+        $deliv = getTable($pdo, "delivery", "`id`=" . $_SESSION['deliv'], '`cost`');
+    }
     if (!isset($_SESSION['user'])){
         $error.=' ошибка данных покупателя / ';
     }
 
-    if($error =='/'){
-       
-        $deliv = getTable($pdo, "delivery", "`id`=" .  $_SESSION['deliv'], '`cost`');
-        
-        $error=pdoSaveOrder($pdo);
+    if($error =='/'){ 
+        $error=saveOrder($pdo);
     }
     
     

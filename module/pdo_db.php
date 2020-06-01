@@ -11,7 +11,7 @@ function connect()
         $host = '127.0.0.1';
         $db   = 'apnea_shop';
         $user = 'root';
-        $pass = '';
+        $pass = '111';
         $charset = 'utf8';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

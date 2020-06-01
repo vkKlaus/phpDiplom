@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 14 2020 г., 16:47
--- Версия сервера: 8.0.12
--- Версия PHP: 7.2.10
+-- Время создания: Июн 01 2020 г., 23:00
+-- Версия сервера: 8.0.15
+-- Версия PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -96,9 +96,9 @@ CREATE TABLE `delivery` (
 --
 
 INSERT INTO `delivery` (`id`, `name`, `cost`) VALUES
-(1, 'курьерская доставка', 250),
+(1, 'самовывоз', 0),
 (2, 'пункт самовывоза', 100),
-(3, 'самовывоз', 0),
+(3, 'курьерская доставка', 250),
 (4, 'почта РФ', 100),
 (5, 'СДЭК', 350),
 (6, 'DHL', 250);
@@ -157,16 +157,10 @@ CREATE TABLE `message` (
 -- Дамп данных таблицы `message`
 --
 
-INSERT INTO `message` (`id`, `visitor`, `email`, `phone`, `message`, `date`, `dispatched`, `response`) VALUES
-(1, 'hjhjk', 'asasdfasdf@ddd.rr', NULL, 'прапрапрапр', '2020-05-14 05:50:09', 0, ''),
-(2, 'hjhjk', 'asasdfasdf@ddd.rr', NULL, 'прапрапрапр', '2020-05-14 05:50:09', 0, ''),
-(3, 'hjhjk', 'asasdfasdf@ddd.rr', NULL, 'прапрапрапр', '2020-05-14 05:50:09', 0, ''),
-(4, 'hjhjk', 'gfhfgh@eee.ee', NULL, ' fgdfgdfgdfgdfg', '2020-05-14 05:50:09', 0, ''),
-(5, 'hjhjk', 'gfhfgh@eee.ee', '', '   wqwqweqw', '2020-05-14 05:50:09', 0, ''),
-(6, 'hjhjk', 'gfhfgh@eee.ee', '', ' ssgsgs', '2020-05-14 05:50:09', 1, ''),
-(7, 'hggh', 'gfhfgh@eee.ee', '', ' gjghjghjghj', '2020-05-14 05:50:09', 0, ''),
-(8, 'hggh', 'gfhfgh@eee.ee', '', 'ffghfghfgh', '2020-05-14 05:50:09', 0, ''),
-(9, 'hggh', 'gfhfgh@eee.ee', '', 'ffghfghfgh', '2020-05-14 05:50:09', 0, '');
+INSERT INTO `message` (`id`, `visitor`, `email`, `phone`, `message`, `dispatched`, `response`) VALUES
+(20, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, 'ttttttttttt'),
+(21, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, NULL),
+(22, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,14 +193,21 @@ INSERT INTO `news` (`id`, `date`, `title`, `new`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `number` varchar(45) NOT NULL,
-  `user` int(11) NOT NULL,
-  `delivery` int(11) DEFAULT NULL,
-  `cost_delivery` int(11) DEFAULT NULL,
+  `email` varchar(256) NOT NULL,
+  `delivery` int(11) DEFAULT '1',
+  `address` varchar(2048) DEFAULT NULL,
+  `cost_delivery` int(11) DEFAULT '0',
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `status_id` int(3) NOT NULL DEFAULT '1',
   `date_status` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `email`, `delivery`, `address`, `cost_delivery`, `status_id`) VALUES
+(11, 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 1);
 
 -- --------------------------------------------------------
 
@@ -221,6 +222,16 @@ CREATE TABLE `order_list` (
   `count` int(11) NOT NULL DEFAULT '0',
   `price` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `order_list`
+--
+
+INSERT INTO `order_list` (`id`, `product`, `cost`, `count`, `price`) VALUES
+(11, 4, 245, 7, 35),
+(11, 5, 1024, 4, 256),
+(11, 8, 912, 12, 76),
+(11, 3, 20, 1, 20);
 
 -- --------------------------------------------------------
 
@@ -247,7 +258,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `category_id`, `code`, `price`, `count`, `brand`, `availability`, `description`, `is_new`, `is_recommended`) VALUES
-(1, 'Маска для фридайвинга TUSA Sport UM-29', 1, 0, '51.00', 0, 15, 1, 'Маска для фридайвинга Tusa Sport UM29 отличается традиционным качеством и мягким силиконом, обеспечивающим плотное и комфортное прилегание к лицу. \r\nЗа счет поликарбонатовых линз, маска удивляет своим легким весом и практически не ощущается на лице. \r\nТрадиционные для подобных масок низкопрофильный дизайн и небольшое подмасочное пространство облегчают процесс продувки и прочистки. \r\nОригинальная застежка позволяет легко снимать и надевать маску. ', 1, 1),
+(1, 'Маска для фридайвинга TUSA Sport UM-29', 1, 0, '51.00', 0, 15, 0, 'Маска для фридайвинга Tusa Sport UM29 отличается традиционным качеством и мягким силиконом, обеспечивающим плотное и комфортное прилегание к лицу. \r\nЗа счет поликарбонатовых линз, маска удивляет своим легким весом и практически не ощущается на лице. \r\nТрадиционные для подобных масок низкопрофильный дизайн и небольшое подмасочное пространство облегчают процесс продувки и прочистки. \r\nОригинальная застежка позволяет легко снимать и надевать маску. ', 1, 1),
 (2, 'МАСКА СФЕРА (черный силикон)', 1, 0, '46.00', 0, 14, 1, 'Сенсация в дайвинге и сноркелинге - уникальное сочетание свойств в результате применения новейших материалов и технологий. Новый материал Plexisol позволил создать линзы, не дающие искажений пропорций и размеров объектов под водой, и обеспечивающие максимальный обзор в 180°. Plexisol в 10 раз легче воды и в 20 раз прочнее стекла, поэтому эта маска самая легкая в мире (98 г). Самое маленькое подмасочное пространство. Линзы защищены от запотевания и царапин и не пронускают ультрафиолетовых лучей. Конструктивные особенности: Линзы изготовлены из плексисола, обеспечивающего видимость реального расстояния под водой; Внешняя сторона линз имеет защитное покрытие от царапин, а внутренняя обработана антизапотевателем; Обзор 180° без каких-либо искажений; Самое маленькое подмасочное пространство среди имеющихся на рынке масок; Малый вес - 98 г, (вес средней маски - 200 г); Анатомический фланец, изготовленный из гипоаллергентного медицинского силикона; Быстро регулируемые пряжки.', 0, 1),
 (3, 'Маска Scorpena RedLine Kappa', 1, 0, '20.00', 0, 10, 1, 'Маска Scorpena RedLine Kappa прекрасно подходит для начинающего подводных охотников и дайверов. Форма маски разработана специально, чтобы соответствовать разным типам лица. Маска Scorpena RedLine Kappa - удобная маска из гипоалергенного силикона с широким углом обзора и небольшим объемом подмасочного пространства. Силиконовый обтюратор прикреплен непосредственно на закаленное стекло маски, что способствует снижению ее веса и объема. Пряжки затылочного ремня - с микрометрической регулировкой.', 0, 0),
 (4, 'Маска Scorpena M', 1, 0, '35.00', 0, 10, 1, 'Популярная модель маски Scorpena М теперь представлена также в камуфляжных расцветках, чтобы соответствовать окраске камуфлированного или цветного гидрокостюма. У Scorpena M Camo прозрачные стекла, а в остальном она обладает всеми достоинствами предыдущей модели.\r\n\r\nМалый подмасочный объем делает возможным более глубокое погружение на задержке дыхания. Особый дизайн двухстекольной конструкции обеспечивает отличный обзор. Сверхмягкий обтюратор из матового силикона не только обеспечивает оптимальное прилегание маски к лицу и отсутствие бликов, но и необычайно приятен на ощупь. Для ослабления натяжения, пряжки этой маски имеет две кнопки, которые удобно находить и нажимать даже на ощупь и в перчатках.\r\n\r\nМаска Scorpena М обладает ставшей уже привычной для наших масок особенностью - пряжки крепятся не к пластиковому корпусу маски, а к силиконовой юбке, что сводит к минимуму вероятность их случайного повреждения, а также позволяет компактно сложить ее для перевозки. Прочная рамка обеспечивает износостойкость, а удобная система крепления раздвоенного ремешка позволяет одним движением достигнуть максимально комфортного натяжения.\r\n\r\nВо время охоты в маске SCORPENA M вы можете забыть о снаряжении и следовать своему охотничьему инстинкту. Маска сразу укомплектована нами фирменным боксом Scorpena для удобства её транспортировки и хранения.', 1, 1),
@@ -340,25 +351,26 @@ CREATE TABLE `users` (
   `phone` varchar(20) DEFAULT NULL,
   `password` char(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `flag_email_notification` tinyint(1) NOT NULL DEFAULT '0',
-  `flag_active` tinyint(1) NOT NULL DEFAULT '0'
+  `flag_active` tinyint(1) NOT NULL DEFAULT '0',
+  `aders_dev` text CHARACTER SET utf8 COLLATE utf8_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `user`, `email`, `phone`, `password`, `flag_email_notification`, `flag_active`) VALUES
-(1, 'admin', 'ad@9.dz7', '999-99-99', '$2y$10$N7irlIffhiVj9CsAzcP9jOnliI9nFDRDkVenhicWa6k0tMr6aB3jS', 1, 0),
-(2, 'operator', 'op@8.dz7', '888-88-88', '$2y$10$TPKLV3/XHLDp2NtS8EnWJukg49BSqtj.HBM.idiX2CO9ZNt3.F1se', 1, 0),
-(3, 'us20', 'us2@2.dz7', '222 - 22 - 22', '$2y$10$u2LJ0ieYbsuBDjjONLzfT.CNfCF4A9hLdX/QEJQCnAs9NPgDnZvpW', 1, 0),
-(4, 'us30', 'us3@3.dz7', '333 - 33 - 33', '$2y$10$kDg7ptjyTG0WhEYUtmCOGeUapOkU2kq/OkePNq3SUY6uBcVHBSpiu', 1, 0),
-(5, 'us40', 'us4@4.dz7', '444 - 44 - 44', '$2y$10$MN4YCkw6CsW6gWNbzeWssOcK/xLbWL49XB5NbI33SyfxZ.JeG.dnW', 1, 0),
-(6, 'us50', 'us5@5.dz7', '555 - 55 - 55', '$2y$10$RrlDPpY829yxpeiCTJ5v/OJYWMTlLWoszOYrdyQR5tIfpi0rMNLGa', 1, 0),
-(7, 'us60', 'us6@6.dz7', '666 - 66 - 66', '$2y$10$cHlw1AB.Yw6f.CfEC/6Hsu2XdnYt0Eifz6iPaXt1lMa5L.XAL9Wbu', 1, 0),
-(8, 'us70', 'us7@7.dz7', '777 - 77 - 77', '$2y$10$q4YWJXXNcZfsGMMpfZ3LPexH.NZPAH0JUTHoM2KdLdIL/XCaRVa8q', 1, 0),
-(9, 'us80', 'us8@8.dz7', '888 - 88 - 88', '$2y$10$WENXkZe0sQNx5ui2oqJ.FegbTeAI9Qd21Nojs9V8Jd0dOgoO1JwJW', 1, 0),
-(10, 'us90', 'us9@9.dz7', '999 - 99 - 99', '$2y$10$4rA7.DqxjR4IJS.YKfxUiuPKT6v93dmg0jWybQbVKBj6ntMoMreU.', 1, 0),
-(11, '999', '999@999.dz7', '000-00-00', '$2y$10$N7irlIffhiVj9CsAzcP9jOnliI9nFDRDkVenhicWa6k0tMr6aB3jS', 1, 0);
+INSERT INTO `users` (`id`, `user`, `email`, `phone`, `password`, `flag_email_notification`, `flag_active`, `aders_dev`) VALUES
+(1, 'admin', 'ad@9.dz7', '999-99-99', '$2y$10$N7irlIffhiVj9CsAzcP9jOnliI9nFDRDkVenhicWa6k0tMr6aB3jS', 1, 0, NULL),
+(2, 'operator', 'op@8.dz7', '888-88-88', '$2y$10$TPKLV3/XHLDp2NtS8EnWJukg49BSqtj.HBM.idiX2CO9ZNt3.F1se', 1, 0, NULL),
+(3, 'us20', 'us2@2.dz7', '222 - 22 - 22', '$2y$10$u2LJ0ieYbsuBDjjONLzfT.CNfCF4A9hLdX/QEJQCnAs9NPgDnZvpW', 1, 0, NULL),
+(4, 'us30', 'us3@3.dz7', '333 - 33 - 33', '$2y$10$kDg7ptjyTG0WhEYUtmCOGeUapOkU2kq/OkePNq3SUY6uBcVHBSpiu', 1, 0, NULL),
+(5, 'us40', 'us4@4.dz7', '444 - 44 - 44', '$2y$10$MN4YCkw6CsW6gWNbzeWssOcK/xLbWL49XB5NbI33SyfxZ.JeG.dnW', 1, 0, NULL),
+(6, 'us50', 'us5@5.dz7', '555 - 55 - 55', '$2y$10$RrlDPpY829yxpeiCTJ5v/OJYWMTlLWoszOYrdyQR5tIfpi0rMNLGa', 1, 0, NULL),
+(7, 'us60', 'us6@6.dz7', '666 - 66 - 66', '$2y$10$cHlw1AB.Yw6f.CfEC/6Hsu2XdnYt0Eifz6iPaXt1lMa5L.XAL9Wbu', 1, 0, NULL),
+(8, 'us70', 'us7@7.dz7', '777 - 77 - 77', '$2y$10$q4YWJXXNcZfsGMMpfZ3LPexH.NZPAH0JUTHoM2KdLdIL/XCaRVa8q', 1, 0, NULL),
+(9, 'us80', 'us8@8.dz7', '888 - 88 - 88', '$2y$10$WENXkZe0sQNx5ui2oqJ.FegbTeAI9Qd21Nojs9V8Jd0dOgoO1JwJW', 1, 0, NULL),
+(10, 'us90', 'us9@9.dz7', '999 - 99 - 99', '$2y$10$4rA7.DqxjR4IJS.YKfxUiuPKT6v93dmg0jWybQbVKBj6ntMoMreU.', 1, 0, NULL),
+(11, '999', '999@999.dz7', '000-00-00', '$2y$10$N7irlIffhiVj9CsAzcP9jOnliI9nFDRDkVenhicWa6k0tMr6aB3jS', 1, 0, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -415,15 +427,14 @@ ALTER TABLE `news`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_delivery_idx` (`delivery`),
-  ADD KEY `fk_user_id_idx` (`user`),
   ADD KEY `fk_status_id_idx` (`status_id`);
 
 --
 -- Индексы таблицы `order_list`
 --
 ALTER TABLE `order_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_product_idx` (`product`);
+  ADD KEY `fk_product_idx` (`product`),
+  ADD KEY `fk_id_order_idx` (`id`);
 
 --
 -- Индексы таблицы `product`
@@ -480,7 +491,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT для таблицы `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `groups`
@@ -492,13 +503,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT для таблицы `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `news`
 --
 ALTER TABLE `news`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
@@ -510,7 +527,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -528,14 +545,13 @@ ALTER TABLE `group_user`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_delivery` FOREIGN KEY (`delivery`) REFERENCES `delivery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `order_list`
 --
 ALTER TABLE `order_list`
-  ADD CONSTRAINT `fk_order` FOREIGN KEY (`id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_order` FOREIGN KEY (`id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `fk_product` FOREIGN KEY (`product`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

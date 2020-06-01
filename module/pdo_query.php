@@ -115,16 +115,74 @@ function getPrice(object $pdo, string $where = "1"): array
  *  @param object $pdo - объект соединения с БД
  * 
  */
-function pdoSaveOrder(object $pdo)
+function saveOrder(object $pdo)
 {
-    $user = getTable($pdo, 'users', '`email`="' . $_SESSION['user']['email'] . '"');
+    $deliv = getTable($pdo, "delivery", "`id`=" .  $_SESSION['deliv'], '`cost`');
 
-    if (!$user) {
-        $userID = (int) insertUser($pdo);
-    } else {
-        $userID = $user[0]['id'];
+    $sqlOrder = 'INSERT INTO `orders`
+                (
+                    `email`,
+                    `delivery`,
+                    `address`,
+                    `cost_delivery`, 
+                    `status_id` 
+                ) 
+                VALUES 
+                (
+                    :email,
+                    :delivery,
+                    :address,
+                    :cost_delivery, 
+                    :status_id 
+                )';
+
+    $stmtOrder = $pdo->prepare($sqlOrder);
+
+    $stmtOrder->execute(
+        [
+            'email' => htmlspecialchars($_SESSION['user']['email']),
+            'delivery' => $deliv[0]['id'],
+            'address' => $_SESSION['user']['message'],
+            'cost_delivery' => $deliv[0]['cost'],
+            'status_id' => 1
+        ]
+    );
+
+    $orderID = $pdo->lastInsertId('users');
+
+    $sqlOrderList = 'INSERT INTO `order_list`
+                (
+                    `id`,
+                    `product`, 
+                    `cost`, 
+                    `count`, 
+                    `price`
+                )
+                VALUES 
+                ( 
+                    :id,
+                    :product, 
+                    :cost, 
+                    :count, 
+                    :price
+                 )';
+    $stmtOrderList = $pdo->prepare($sqlOrderList);
+
+    foreach ($_SESSION['order'] as $value) {
+        $stmtOrderList->execute(
+            [
+                'id' => $orderID,
+                'product' => $value['id'],
+                'cost' => ($value['count'] * $value['price']),
+                'count' => $value['count'],
+                'price' => $value['price']
+            ]
+        );
     }
+
 }
+
+
 /**
  * добавление пользователя
  *  @param object $pdo - объект соединения с БД
@@ -185,6 +243,6 @@ function lastID(object $pdo, string $table)
     $sql = "SELECT LAST_INSERTED_ID()";
 
     $stmt = $pdo->prepare($sql);
-    
+
     return $stmt->execute();
 }
