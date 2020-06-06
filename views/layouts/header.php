@@ -1,45 +1,3 @@
-<?php
-require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_db.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/module/pdo_query.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/module/helpers.php';
-
-$requestUri = $_SERVER['REQUEST_URI'];
-
-session_start();
-
-$pdo = connect();
-
-if (isset($_POST['inBasket'])) {
-    inBasket($_POST['inBasket']);
-}
-
-if (isset($_SESSION['basket'])) {
-    $inBasket = count($_SESSION['basket']);
-} else {
-    $inBasket = 0;
-}
-// if (isset($_GET['del'])) {
-//     $delElement = $_GET['del'];
-
-//     if (isset($_SESSION['basket'])) {
-//         $key = array_search($delElement, $_SESSION['basket']);
- 
-//         if ($key >= 0) {             
-//                 unset($_SESSION['basket'][$key]);
-//         }
-
-//         $inBasket=count($_SESSION['basket']);
-//     }
-   
-//     if (isset($_SESSION['order'])) {
-//     }
-//     foreach ($_SESSION['order'] as $key => $item) {
-//         if ($item['id'] == $delElement) {
-//             unset($_SESSION['order'][$key]);
-//         }
-//     }
-// }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -217,6 +175,14 @@ if (isset($_SESSION['basket'])) {
                             <a class="nav-link" href="#">
                                 <span class="item-menu">
                                     Заказы
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/views/admin/news.php">
+                                <span class="item-menu">
+                                    Новости
                                 </span>
                             </a>
                         </li>

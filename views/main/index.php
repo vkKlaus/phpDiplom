@@ -1,10 +1,10 @@
 <?php 
-require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 
 resetFilterSession();
 
 //левая секция
-$news = getTable($pdo, "news","", "`date`"); 
+$news = getTable($pdo, "news","", "`date` DESC"); 
 //центральная секция
 
 
@@ -32,7 +32,8 @@ if ($nextPage > $countEl - 6) {
     $nextPage = $countEl - 6;
 }
 //правая секция
-$messages = getTable($pdo, "message");
+$messages = getTable($pdo, "message","", "`date` DESC");
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
 <div class="row">

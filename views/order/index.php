@@ -1,6 +1,7 @@
 <?php
 
-require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
+
 
 resetFilterSession();
 
@@ -57,6 +58,8 @@ if (isset($_SESSION['basket'])) {
         }
     }
 }
+
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
 
@@ -105,9 +108,9 @@ if (isset($_SESSION['basket'])) {
                             </td>
 
                             <td class="col d-flex">
-                                <a href="/views/order/?sub=<?= $item['id'] ?>"><i class="fas fa-minus-circle"></i></i></a>
+                                <a href="/views/order/?sub=<?= $item['id'] ?>"><i class="fas fa-minus-circle"></i></a>
                                 &nbsp;
-                                <a href="/views/order/?add=<?= $item['id'] ?>"><i class="fas fa-plus-circle"></i></i></a>
+                                <a href="/views/order/?add=<?= $item['id'] ?>"><i class="fas fa-plus-circle"></i></a>
                             </td>
                         </tr>
 
@@ -122,9 +125,16 @@ if (isset($_SESSION['basket'])) {
                     </tr>
                 </tbody>
             </table>
-            <div class="row mt-5">
-                <div class="col d-flex justify-content-end">
-                    <input type="submit" name="submit" class="btn btn-info" value="Оформить заказ">
+            <div class="d-flex justify-content-between">
+                <div class="row mt-5">
+                    <div class="col d-flex justify-content-end">
+                        <a  href="/views/catalog/?basket=del" class="btn btn-info">Очистить</a>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col d-flex justify-content-end">
+                        <input type="submit" name="submit" class="btn btn-info" value="Оформить заказ">
+                    </div>
                 </div>
             </div>
         </div>

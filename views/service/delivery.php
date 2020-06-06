@@ -1,8 +1,9 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 resetFilterSession();
 
 $deliv = getTable($pdo,"delivery","",'`cost`');
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 <div class="row d-flex flex-row">
     <div class="col ml-5 mr-5">

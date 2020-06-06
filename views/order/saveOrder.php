@@ -1,6 +1,6 @@
 <?php
 
-require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 
 resetFilterSession();
 
@@ -42,7 +42,7 @@ if (isset($_GET['save']) && $_GET['save']){
 };
 
 
-
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
 <div class="row">

@@ -1,6 +1,6 @@
 <?php
 
-require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 
 resetFilterSession();
 
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
         $totalCost += $_SESSION['order'][$key]['count'] * $_SESSION['order'][$key]['price'];
     }
 }
-
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 <div class="container">
     <form method="POST" action="/views/order/saveOrder.php">

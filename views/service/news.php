@@ -1,7 +1,8 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 resetFilterSession();
-$news = getTable($pdo, "news","", "`date`"); 
+$news = getTable($pdo, "news","", "`date` DESC"); 
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
 <h3>Новости</h3>

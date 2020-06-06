@@ -179,7 +179,6 @@ function saveOrder(object $pdo)
             ]
         );
     }
-
 }
 
 
@@ -236,13 +235,82 @@ function insertUser(object $pdo)
 /**
  * последний id
  * @param object $pdo - объект соединения с БД
- * @param string $pdo - объект соединения с БД
  */
-function lastID(object $pdo, string $table)
+function lastID(object $pdo)
 {
     $sql = "SELECT LAST_INSERTED_ID()";
 
     $stmt = $pdo->prepare($sql);
 
     return $stmt->execute();
+}
+
+/**
+ * добавить новость
+ * @param object $pdo - объект соединения с БД
+ * @param array $new - массив с новостью
+ */
+function addNew(object $pdo, array $new)
+{
+
+    $sql = 'INSERT INTO  `news`
+    (
+        `date`, 
+        `title`, 
+        `new`
+        ) 
+        VALUES 
+        (
+            :date,
+            :title,
+            :new
+        )';
+
+    $stmt = $pdo->prepare($sql);
+    return ($stmt->execute(
+        [
+            'date' => htmlspecialchars($new['date']),
+            'title' => htmlspecialchars($new['title']),
+            'new' => htmlspecialchars($new['new']),
+        ]
+    ));
+}
+
+/**
+ * удалить новость
+ * @param object $pdo - объект соединения с БД
+ * @param int $id - удаляемая новость
+ */
+function delNew(object $pdo, int $id)
+{
+    $sql = "DELETE FROM `news` WHERE `id`= $id";
+    $stmt = $pdo->prepare($sql);
+    return ($stmt->execute());
+}
+
+/**
+ * добавить новость
+ * @param object $pdo - объект соединения с БД
+ * @param array $new - массив с новостью
+ */
+function updNew(object $pdo, array $new)
+{
+
+    $sql = 'UPDATE `news` 
+    SET 
+    `date`=:date,
+    `title`=:title,
+    `new`=:new 
+    WHERE `id`=:id';
+
+    $stmt = $pdo->prepare($sql);
+
+    return ($stmt->execute(
+        [
+            'id' => (int) $new['id'],
+            'date' => htmlspecialchars($new['date']),
+            'title' => htmlspecialchars($new['title']),
+            'new' => htmlspecialchars($new['new']),
+        ]
+    ));
 }

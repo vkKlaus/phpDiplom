@@ -1,4 +1,14 @@
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
+
+if (isset($_GET['basket']) && ($_GET['basket'] == 'del')){
+    if (isset($_SESSION['order'])) {
+        unset($_SESSION['order']);
+    }
+    if (isset($_SESSION['basket'])) {
+        unset($_SESSION['basket']);
+        $inBasket = 0;
+    }
+}
 
 //фильтр
 $brandsCatalog = getTable($pdo, 'brands', '', 'name');
@@ -121,6 +131,8 @@ $nextPage = $page + 12;
 if ($nextPage > $countEl - 12) {
     $nextPage = $countEl - 12;
 }
+
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 <!-- --------------------------------------------------------------------------- -->
 <div class="row">

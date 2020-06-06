@@ -1,7 +1,8 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 resetFilterSession();
-$messages = getTable($pdo, "message");
+$messages = getTable($pdo, "message","", "`date` DESC");
+require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 <h3>Вопросы, отзывы, сообщения</h3>
 <hr>
