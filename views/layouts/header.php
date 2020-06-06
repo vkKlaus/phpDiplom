@@ -188,7 +188,7 @@
                         </li>
 
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/views/admin/messages.php">
                                 <span class="item-menu">
                                     Сообщения
                                 </span>

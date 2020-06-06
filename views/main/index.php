@@ -32,7 +32,7 @@ if ($nextPage > $countEl - 6) {
     $nextPage = $countEl - 6;
 }
 //правая секция
-$messages = getTable($pdo, "message","", "`date` DESC");
+$messages = getTable($pdo, "message","`dispatched`=1", "`date` DESC");
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 

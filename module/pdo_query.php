@@ -277,19 +277,20 @@ function addNew(object $pdo, array $new)
 }
 
 /**
- * удалить новость
+ * удалить данные
  * @param object $pdo - объект соединения с БД
+ * @param string $table - таблица
  * @param int $id - удаляемая новость
  */
-function delNew(object $pdo, int $id)
+function delData(object $pdo,string $table, int $id=Null)
 {
-    $sql = "DELETE FROM `news` WHERE `id`= $id";
+    $sql = "DELETE FROM `$table` WHERE ". ($id==Null?1:"`id`=$id");
     $stmt = $pdo->prepare($sql);
     return ($stmt->execute());
 }
 
 /**
- * добавить новость
+ * изменить новость
  * @param object $pdo - объект соединения с БД
  * @param array $new - массив с новостью
  */
@@ -307,10 +308,35 @@ function updNew(object $pdo, array $new)
 
     return ($stmt->execute(
         [
-            'id' => (int) $new['id'],
+            'id' => (int) $new['idNew'],
             'date' => htmlspecialchars($new['date']),
             'title' => htmlspecialchars($new['title']),
             'new' => htmlspecialchars($new['new']),
+        ]
+    ));
+}
+
+/**
+ * изменить сообщение
+ * @param object $pdo - объект соединения с БД
+ * @param array $mess - массив с сообщение
+ */
+function updMessage(object $pdo, array $mess)
+{
+
+    $sql = 'UPDATE `message` 
+    SET 
+    `dispatched`=:dispatched,
+    `response`=:response
+    WHERE `id`=:id';
+
+    $stmt = $pdo->prepare($sql);
+
+    return ($stmt->execute(
+        [
+            'id' => ((int) $mess['idMes']),
+            'dispatched' => ((int) $mess['dispatched']),
+            'response' => htmlspecialchars($mess['response']),
         ]
     ));
 }

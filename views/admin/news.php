@@ -9,21 +9,21 @@ $operation = 'Добавить';
 if (isset($_POST['addNew'])) {
     if ($_POST['addNew'] == 'Добавить') {
         $result = addNew($pdo, $_POST);
-       
+
         if ($result) {
             unset($_POST['addNew']);
-            
+
             $operation = 'Добавить';
         }
     } elseif ($_POST['addNew'] == 'Изменить') {
-        $_POST['id'] = isset($_SESSION['id']) ? $_SESSION['id'] : Null;
-       
+        $_POST['id'] = isset($_SESSION['idNew']) ? $_SESSION['idNew'] : Null;
+
         $result = updNew($pdo, $_POST);
-        
+
         if ($result) {
             unset($_GET);
 
-            unset($_SESSION['id']);
+            unset($_SESSION['idNew']);
 
             $operation = 'Добавить';
         }
@@ -31,12 +31,12 @@ if (isset($_POST['addNew'])) {
 };
 
 if (isset($_GET['del'])) {
-    delNew($pdo, $_GET['del']);
+    delData($pdo,'news',$_GET['del']);
 }
 
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
-    $_SESSION['id'] = $id;
+    $_SESSION['idNew'] = $id;
     $new = getTable($pdo, "news", "`id`=$id", "`date` DESC");
     $date = $new[0]['date'];
     $title = $new[0]['title'];
@@ -81,13 +81,20 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
 <?php
 foreach ($news as $new) { ?>
-    <div class="row">
-        <div class="col-11">
-            <div class="h5"><?= $new['date'] ?></div>
+    <div class="row mb-3 border-bottom border-info">
+        <div class="col-2">
+            <div class="mb-2 text-right">дата: </div>
 
-            <div class="h4"><strong><?= $new['title'] ?></strong></div>
+            <div class="mb-2 text-right">заголовок: </div>
 
-            <div class="h6"><?= $new['new']  ?></div>
+            <div class="mb-2 text-right">новость: </div>
+        </div>
+        <div class="col-9">
+            <div class="mb-2"><?= $new['date'] ?></div>
+
+            <div class="mb-2"><?= $new['title'] ?></div>
+
+            <div class="mb-2"><?= $new['new']  ?></div>
         </div>
 
         <div class="col d-flex">
@@ -96,6 +103,6 @@ foreach ($news as $new) { ?>
             <a href="/views/admin/news.php ? del=<?= $new['id'] ?>"><i class="far fa-minus-square h3"></i></a>
         </div>
     </div>
-
+    
 <?php } ?>
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

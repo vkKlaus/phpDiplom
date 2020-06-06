@@ -28,12 +28,11 @@ if (isset($_POST['send'])) {
 
 
     if (!$resultMes) {
+        
+        $_POST['dispatched'] = 0;
 
         if (!sentMail($_POST)) {
             $resultMes .= 'ОШИБКА отправки письма <br>';
-            $_POST['dispatched'] = 0;
-        } else {
-            $_POST['dispatched'] = 1;
         }
 
         if (!insertMessage($pdo, $_POST)) {
