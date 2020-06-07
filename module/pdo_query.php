@@ -52,7 +52,7 @@ function insertMessage(object $pdo,  array $data): bool
  * @param string $where - условие
  * @param string $sort - сортировка
  * @param string $limit - выборка
- * @return array - результат записи сообщения
+ * @return array - результат  сообщения
  */
 
 function getTable(object $pdo, string $table, string $where = "1", $sort = "", $limit = ""): array
@@ -63,6 +63,65 @@ function getTable(object $pdo, string $table, string $where = "1", $sort = "", $
     WHERE " . ($where == "" ? 1 : "$where")
         . ($sort == "" ? "" : " ORDER BY $sort")
         . ($limit == "" ? "" : " LIMIT $limit");
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+/**
+ * функция получения  таблицы заказов
+ * @param object $pdo - объект соединения с БД
+ * @param array data - массив с данными
+ * @return array - результат  сообщения
+ */
+
+function getOrder(object $pdo, array $data): array
+{
+
+
+    $sql = "SELECT 
+                `orders`.* , 
+                `delivery`.name as 'devil'
+            FROM `orders`  
+            LEFT JOIN
+                `delivery` 
+            ON 
+            `orders`.delivery = `delivery`.id";
+
+    if ($data){
+        $sql .=' WHERE `status_id` = ' . $data['status'];
+    }        
+
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
+/**
+ * функция получения  таблицы заказов
+ * @param object $pdo - объект соединения с БД
+ * @return array - результат  сообщения
+ */
+
+function getOrderList(object $pdo): array
+{
+
+
+    $sql = "SELECT 
+                `order_list`.* , 
+                `product`.name as 'product_name'
+            FROM 
+                `order_list`  
+            LEFT JOIN
+                `product` 
+            ON 
+                `order_list`.product = `product`.id";
+
 
     $stmt = $pdo->prepare($sql);
 
@@ -119,35 +178,52 @@ function saveOrder(object $pdo)
 {
     $deliv = getTable($pdo, "delivery", "`id`=" .  $_SESSION['deliv'], '`cost`');
 
+    $cost_product=0;
+    foreach ($_SESSION['order'] as $value) {
+        $cost_product +=($value['count'] * $value['price']);
+    };
+
     $sqlOrder = 'INSERT INTO `orders`
                 (
+                    `user`,
                     `email`,
                     `delivery`,
                     `address`,
                     `cost_delivery`, 
+                    `cost_product`, 
+                    `cost_total`, 
                     `status_id` 
                 ) 
                 VALUES 
                 (
+                    :user,
                     :email,
                     :delivery,
                     :address,
                     :cost_delivery, 
+                    :cost_product, 
+                    :cost_total, 
                     :status_id 
                 )';
 
     $stmtOrder = $pdo->prepare($sqlOrder);
 
-    $stmtOrder->execute(
+    $result = $stmtOrder->execute(
         [
+            'user' => htmlspecialchars($_SESSION['user']['visitor']),
             'email' => htmlspecialchars($_SESSION['user']['email']),
             'delivery' => $deliv[0]['id'],
             'address' => $_SESSION['user']['message'],
             'cost_delivery' => $deliv[0]['cost'],
+            'cost_product' => $cost_product,
+            'cost_total' => ($deliv[0]['cost'] + $cost_product),
             'status_id' => 1
         ]
     );
 
+    if (!$result){
+        return 'ошибка записи заказа';
+    }
     $orderID = $pdo->lastInsertId('users');
 
     $sqlOrderList = 'INSERT INTO `order_list`
@@ -169,7 +245,7 @@ function saveOrder(object $pdo)
     $stmtOrderList = $pdo->prepare($sqlOrderList);
 
     foreach ($_SESSION['order'] as $value) {
-        $stmtOrderList->execute(
+        $result=$stmtOrderList->execute(
             [
                 'id' => $orderID,
                 'product' => $value['id'],
@@ -178,7 +254,14 @@ function saveOrder(object $pdo)
                 'price' => $value['price']
             ]
         );
+
+        if (!$result){
+            return 'ошибка записи листа товаров';
+        }
     }
+
+    return $orderID;
+
 }
 
 
@@ -282,9 +365,9 @@ function addNew(object $pdo, array $new)
  * @param string $table - таблица
  * @param int $id - удаляемая новость
  */
-function delData(object $pdo,string $table, int $id=Null)
+function delData(object $pdo, string $table, int $id = Null)
 {
-    $sql = "DELETE FROM `$table` WHERE ". ($id==Null?1:"`id`=$id");
+    $sql = "DELETE FROM `$table` WHERE " . ($id == Null ? 1 : "`id`=$id");
     $stmt = $pdo->prepare($sql);
     return ($stmt->execute());
 }
@@ -340,3 +423,27 @@ function updMessage(object $pdo, array $mess)
         ]
     ));
 }
+
+/**
+ * изменить статус
+ * @param object $pdo - объект соединения с БД
+ * @param array $status - массив с сообщение
+ */
+function changeStatus(object $pdo, array $status)
+{ 
+    $sql = 'UPDATE `orders` 
+    SET 
+    `status_id`=:status_id
+    WHERE `id`=:id';
+
+    $stmt = $pdo->prepare($sql);
+
+    return ($stmt->execute(
+        [
+            'id' => ((int) $status['orderID']),
+            'status_id' => ((int) $status['status']),
+        ]
+    ));
+}
+
+

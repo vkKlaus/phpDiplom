@@ -31,7 +31,6 @@ $(function () {
         }
     })
 
-
     owl.on('mousewheel', '.owl-stage', function (e) {
         e.preventDefault();
         if (e.deltaY > 0) {
@@ -42,4 +41,8 @@ $(function () {
         e.preventDefault();
     })
 
+    $('.btn-show').on('click',function(e) {
+     //   $('.collapse').removeClass('show');
+    // ($($(this).attr('data-target')).removeClass("show"));
+      });
 })

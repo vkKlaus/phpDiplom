@@ -172,7 +172,7 @@
                         </li>
 
                         <li class="nav-item mr-3">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/views/admin/orders.php">
                                 <span class="item-menu">
                                     Заказы
                                 </span>
