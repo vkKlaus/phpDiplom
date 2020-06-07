@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 01 2020 г., 23:00
+-- Время создания: Июн 07 2020 г., 19:26
 -- Версия сервера: 8.0.15
 -- Версия PHP: 7.3.9
 
@@ -159,8 +159,7 @@ CREATE TABLE `message` (
 
 INSERT INTO `message` (`id`, `visitor`, `email`, `phone`, `message`, `dispatched`, `response`) VALUES
 (20, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, 'ttttttttttt'),
-(21, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, NULL),
-(22, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, NULL);
+(21, '11', 'user1@email.com', '123-City', ' 11111111111111', 1, 'eeeeeeeeeeeeeeeeeeeeee');
 
 -- --------------------------------------------------------
 
@@ -183,7 +182,7 @@ INSERT INTO `news` (`id`, `date`, `title`, `new`) VALUES
 (1, '2020-01-01', 'МЫ ОТРКРЫЛИСЬ', 'Мы рады сообщить Вам, что наш магазин начал работу и принимает заказы на все товары, указанные в разделе каталог'),
 (2, '2020-03-12', 'Пешком по дну бассейна', 'Рекорд в достаточно необычной для фридайвинга дисциплине был установлен недавно в Хорватии. 100 метров пешком по дну бассейна прошел на одном вдохе Борис Милошич. Это достижение признано рекордом Гиннеса. Предыдущий результат принадлежит турецкому фридайверу. Сертан Айдин в апреле 2015 года прошел под водой 80 метров.'),
 (3, '2020-03-12', 'Рекордные 180 метров подо льдом – плюс один', 'Алексей Молчанов планировал установить новый рекорд Гиннеса, пронырнув подо льдом на задержке дыхания 180 метров. Но по итогам погружения судья AIDA Виктор Францов засчитал результат 181 метр.'),
-(5, '2020-04-16', 'Рекорд Гиннеса на стыке фридайвинга и пауэрлифтинга', 'Чем занять себя во время пандемии? Например, установить рекорд Гиннеса в поднятии штанги на дне озера. Почему бы и нет, подумал американец Грег Уиттсток – и сделал это! Скамейка для жима штанги была установлена на дне озера Сент-Чарльз, штат Иллинойс. Грег Уиттсток поднял 50-киллограмовую штангу 62 раза подряд. Предыдущий рекорд составлял 42 раза. \"Это было весело, - делится впечатлениями рекордсмен. - Я выжал штангу 62 раза, и на этот раз я разгибал руки как следует\"');
+(5, '2020-04-16', 'Рекорд Гиннеса на стыке фридайвинга и пауэрлифтинга', 'Чем занять себя во время пандемии? Например, установить рекорд Гиннеса в поднятии штанги на дне озера. Почему бы и нет, подумал американец Грег Уиттсток – и сделал это! Скамейка для жима штанги была установлена на дне озера Сент-Чарльз, штат Иллинойс. Грег Уиттсток поднял 50-киллограмовую штангу 62 раза подряд. Предыдущий рекорд составлял 42 раза. &quot;Это было весело, - делится впечатлениями рекордсмен. - Я выжал штангу 62 раза, и на этот раз я разгибал руки как следует&quot;  ');
 
 -- --------------------------------------------------------
 
@@ -193,10 +192,13 @@ INSERT INTO `news` (`id`, `date`, `title`, `new`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
+  `user` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `delivery` int(11) DEFAULT '1',
   `address` varchar(2048) DEFAULT NULL,
   `cost_delivery` int(11) DEFAULT '0',
+  `cost_product` int(13) NOT NULL DEFAULT '0',
+  `cost_total` int(13) NOT NULL DEFAULT '0',
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `status_id` int(3) NOT NULL DEFAULT '1',
   `date_status` datetime DEFAULT CURRENT_TIMESTAMP
@@ -206,8 +208,20 @@ CREATE TABLE `orders` (
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `email`, `delivery`, `address`, `cost_delivery`, `status_id`) VALUES
-(11, 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 1);
+INSERT INTO `orders` (`id`, `user`, `email`, `delivery`, `address`, `cost_delivery`, `cost_product`, `cost_total`, `status_id`) VALUES
+(11, 'user11', 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 0, 0, 9),
+(12, 'user12', 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 0, 0, 1),
+(13, 'user13', 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 0, 0, 3),
+(14, 'user14', 'asasdfasdf@ddd.rr', 2, '      ykhjkhjk', 100, 0, 0, 1),
+(15, 'user15', 'asasdfasdf@ddd.rr', 3, ' rergtrtetertertertertertertet', 250, 0, 0, 1),
+(16, 'user16', 'asasdfasdf@ddd.rr', 3, ' rergtrtetertertertertertertet', 250, 0, 0, 1),
+(17, 'user17', 'asasdfasdf@ddd.rr', 3, '  rergtrtetertertertertertertet', 250, 0, 0, 1),
+(18, 'user18', 'asasdfasdf@ddd.rr', 3, '  rergtrtetertertertertertertet', 250, 0, 0, 1),
+(19, 'user111', 'asasdfasdf@ddd.rr', 5, '   rergtrtetertertertertertertet', 350, 229, 579, 1),
+(20, 'user111', 'asasdfasdf@ddd.rr', 5, '    rergtrtetertertertertertertet', 350, 229, 579, 1),
+(21, 'пвп', 'rutru@fff', 5, 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', 350, 1140, 1490, 1),
+(22, 'luulu', 'gfhfgh@eee.ee', 2, ' kjjkljklj', 100, 0, 100, 1),
+(23, 'пвп', 'gfhfgh@eee.ee', 2, '  gghjgjgjgjgjgj', 100, 36, 136, 1);
 
 -- --------------------------------------------------------
 
@@ -231,7 +245,36 @@ INSERT INTO `order_list` (`id`, `product`, `cost`, `count`, `price`) VALUES
 (11, 4, 245, 7, 35),
 (11, 5, 1024, 4, 256),
 (11, 8, 912, 12, 76),
-(11, 3, 20, 1, 20);
+(11, 3, 20, 1, 20),
+(12, 4, 245, 7, 35),
+(12, 5, 1024, 4, 256),
+(12, 8, 912, 12, 76),
+(12, 3, 20, 1, 20),
+(13, 4, 245, 7, 35),
+(13, 5, 1024, 4, 256),
+(13, 8, 912, 12, 76),
+(13, 3, 20, 1, 20),
+(14, 4, 245, 7, 35),
+(14, 5, 1024, 4, 256),
+(14, 8, 912, 12, 76),
+(14, 3, 20, 1, 20),
+(15, 8, 76, 1, 76),
+(15, 9, 153, 1, 153),
+(16, 8, 76, 1, 76),
+(16, 9, 153, 1, 153),
+(17, 8, 76, 1, 76),
+(17, 9, 153, 1, 153),
+(18, 8, 76, 1, 76),
+(18, 9, 153, 1, 153),
+(19, 8, 76, 1, 76),
+(19, 9, 153, 1, 153),
+(20, 8, 76, 1, 76),
+(20, 9, 153, 1, 153),
+(21, 25, 905, 1, 905),
+(21, 28, 235, 1, 235),
+(23, 19, 7, 1, 7),
+(23, 20, 11, 1, 11),
+(23, 21, 18, 1, 18);
 
 -- --------------------------------------------------------
 
@@ -503,19 +546,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT для таблицы `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
