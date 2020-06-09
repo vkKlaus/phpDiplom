@@ -4,17 +4,14 @@
 
 function connect()
 {
+
     static $pdo = null;
 
     if ($pdo === null) {
 
-        $host = '127.0.0.1';
-        $db   = 'apnea_shop';
-        $user = 'root';
-        $pass = '111';
-        $charset = 'utf8';
+        require  $_SERVER['DOCUMENT_ROOT'] . '/config/config_db.php';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = 'mysql:host='.HOST.';dbname='.DB.';charset='.CHARSET;
 
         $opt = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -22,7 +19,7 @@ function connect()
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        $pdo = new PDO($dsn, $user, $pass, $opt);
+        $pdo = new PDO($dsn, USER, PASS, $opt);
     }
 
     return $pdo;

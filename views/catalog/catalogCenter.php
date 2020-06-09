@@ -5,12 +5,12 @@
       
         <a href="/views/catalog/?name=<?= $sortName ?>" class="ml-3">
             по наименованию
-            <?= $sortName == 'ASC' ? '&#11161;' : ($sortName == '' ? '' : '&#11163;') ?>
+            <?= $sortName == 'ASC' ? '<i class="fas fa-sort-amount-down-alt"></i>' : ($sortName == '' ? '' : '<i class="fas fa-sort-amount-down"></i>') ?>
         </a>
        
         <a href="/views/catalog/?cost=<?= $sortCost ?>" class="ml-3">
             по цене
-            <?= $sortCost == 'ASC' ? '&#11161;' : ($sortCost == '' ? '' : '&#11163;') ?>
+            <?= $sortCost == 'ASC' ? '<i class="fas fa-sort-amount-down-alt"></i>' : ($sortCost == '' ? '' : '<i class="fas fa-sort-amount-down"></i>') ?>
         </a>
     </div>
 

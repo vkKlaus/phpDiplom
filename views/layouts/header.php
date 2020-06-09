@@ -11,8 +11,9 @@
 
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+  
 
     <link rel="stylesheet" href="/css/style.css">
 
@@ -203,13 +204,13 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/views/admin/products.php">
                                     <span class="item-submenu">
                                         Товары
                                     </span>
                                 </a>
 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/views/admin/users.php">
                                     <span class="item-submenu">
                                         Пользователи
                                     </span>

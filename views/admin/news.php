@@ -4,34 +4,39 @@ resetFilterSession();
 $date = '';
 $title = '';
 $new = '';
+$error = '';
 $operation = 'Добавить';
 
 if (isset($_POST['addNew'])) {
-    if ($_POST['addNew'] == 'Добавить') {
-        $result = addNew($pdo, $_POST);
+    if (trim($_POST['new']) && trim($_POST['title']) ) {
+        if ($_POST['addNew'] == 'Добавить') {
+            $result = addNew($pdo, $_POST);
 
-        if ($result) {
-            unset($_POST['addNew']);
+            if ($result) {
+                unset($_POST['addNew']);
 
-            $operation = 'Добавить';
+                $operation = 'Добавить';
+            }
+        } elseif ($_POST['addNew'] == 'Изменить') {
+            $_POST['id'] = isset($_SESSION['idNew']) ? $_SESSION['idNew'] : Null;
+
+            $result = updNew($pdo, $_POST);
+
+            if ($result) {
+                unset($_GET);
+
+                unset($_SESSION['idNew']);
+
+                $operation = 'Добавить';
+            }
         }
-    } elseif ($_POST['addNew'] == 'Изменить') {
-        $_POST['id'] = isset($_SESSION['idNew']) ? $_SESSION['idNew'] : Null;
-
-        $result = updNew($pdo, $_POST);
-
-        if ($result) {
-            unset($_GET);
-
-            unset($_SESSION['idNew']);
-
-            $operation = 'Добавить';
-        }
+    }else{
+        $error='Обнаружены не заполненные поля. Данные не записаны.';
     }
 };
 
 if (isset($_GET['del'])) {
-    delData($pdo,'news',$_GET['del']);
+    delData($pdo, 'news', $_GET['del']);
 }
 
 if (isset($_GET['edit'])) {
@@ -50,6 +55,8 @@ $news = getTable($pdo, "news", "", "`date` DESC");
 
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
+
+<h4 class="text-danger"><?= $error ?></h4>
 
 <form method="POST" class="enter-form  col">
     <div class="form-group">
@@ -103,6 +110,6 @@ foreach ($news as $new) { ?>
             <a href="/views/admin/news.php ? del=<?= $new['id'] ?>"><i class="far fa-minus-square h3"></i></a>
         </div>
     </div>
-    
+
 <?php } ?>
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/footer.php';

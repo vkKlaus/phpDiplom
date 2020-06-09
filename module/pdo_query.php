@@ -446,4 +446,37 @@ function changeStatus(object $pdo, array $status)
     ));
 }
 
+function setUserGroup($pdo,$data){
+  
+    $sql = 'DELETE
+     FROM `group_user`
+    WHERE `user_id`=:id';
 
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute(
+        [
+            'id' => ((int) $data['userID']),     
+        ]
+        );
+
+    $sql = 'INSERT 
+                INTO `group_user`
+                    (`user_id`, 
+                    `group_id`)
+                VALUES (:user_id,
+                        :group_id)';
+
+    $stmt = $pdo->prepare($sql);
+
+    foreach ($data['checkBox'] as $role){
+       
+        $stmt->execute(
+            [
+                'user_id' => ((int) $data['userID']),     
+                'group_id' => ((int) $role),     
+            ]
+            );
+    }
+
+}

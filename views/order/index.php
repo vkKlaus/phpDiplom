@@ -66,6 +66,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 <h2 class="text-left text-primary">Коpзина</h2>
 <br>
 
+<?php if(isset ($_SESSION['order']) && $_SESSION['order']) {?>
 <form method="POST" class="container" action="<?= '/views/order/adres.php' ?>">
     <div class="row">
         <div class="col-8">
@@ -140,7 +141,9 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
         </div>
     </div>
 </form>
-
+                <?php } else { ?>
+<h3 class="text-center text-info">КОРЗИНА ПУСТА</h3> 
+               <? } ?>
 
 
 
