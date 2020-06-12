@@ -70,6 +70,48 @@ function getTable(object $pdo, string $table, string $where = "1", $sort = "", $
 
     return $stmt->fetchAll();
 }
+
+/**
+ * получение полной информации по продуку для вывода
+ */
+function getTableFullProducts(object $pdo, string $where = "1", $sort = "", $limit = ""): array
+{
+
+
+    $sql = "SELECT `product`.*, 
+                    `brands`.name as 'brandName', 
+                    `category`.name as 'categoryName'
+            FROM `product` 
+            LEFT JOIN `brands` 
+            ON `product`.`brand` = `brands`.`id`
+            LEFT JOIN `category` 
+            ON `product`.`category_id` = `category`.`id` 
+            WHERE " . ($where == "" ? 1 : "$where")
+        . ($sort == "" ? "" : " ORDER BY $sort")
+        . ($limit == "" ? "" : " LIMIT $limit");
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
+/**
+ * установка параметра продукта
+ */
+function setProductParametr($pdo, $param, $id)
+{
+
+    $sql = "UPDATE `product` 
+            SET `$param`=NOT `$param` 
+            WHERE `id`=:id";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute(['id'=>$id]);
+}
+
 /**
  * функция получения  таблицы заказов
  * @param object $pdo - объект соединения с БД
@@ -90,9 +132,9 @@ function getOrder(object $pdo, array $data): array
             ON 
             `orders`.delivery = `delivery`.id";
 
-    if ($data){
-        $sql .=' WHERE `status_id` = ' . $data['status'];
-    }        
+    if ($data) {
+        $sql .= ' WHERE `status_id` = ' . $data['status'];
+    }
 
 
     $stmt = $pdo->prepare($sql);
@@ -178,9 +220,9 @@ function saveOrder(object $pdo)
 {
     $deliv = getTable($pdo, "delivery", "`id`=" .  $_SESSION['deliv'], '`cost`');
 
-    $cost_product=0;
+    $cost_product = 0;
     foreach ($_SESSION['order'] as $value) {
-        $cost_product +=($value['count'] * $value['price']);
+        $cost_product += ($value['count'] * $value['price']);
     };
 
     $sqlOrder = 'INSERT INTO `orders`
@@ -221,7 +263,7 @@ function saveOrder(object $pdo)
         ]
     );
 
-    if (!$result){
+    if (!$result) {
         return 'ошибка записи заказа';
     }
     $orderID = $pdo->lastInsertId('users');
@@ -245,7 +287,7 @@ function saveOrder(object $pdo)
     $stmtOrderList = $pdo->prepare($sqlOrderList);
 
     foreach ($_SESSION['order'] as $value) {
-        $result=$stmtOrderList->execute(
+        $result = $stmtOrderList->execute(
             [
                 'id' => $orderID,
                 'product' => $value['id'],
@@ -255,13 +297,12 @@ function saveOrder(object $pdo)
             ]
         );
 
-        if (!$result){
+        if (!$result) {
             return 'ошибка записи листа товаров';
         }
     }
 
     return $orderID;
-
 }
 
 
@@ -430,7 +471,7 @@ function updMessage(object $pdo, array $mess)
  * @param array $status - массив с сообщение
  */
 function changeStatus(object $pdo, array $status)
-{ 
+{
     $sql = 'UPDATE `orders` 
     SET 
     `status_id`=:status_id
@@ -446,8 +487,9 @@ function changeStatus(object $pdo, array $status)
     ));
 }
 
-function setUserGroup($pdo,$data){
-  
+function setUserGroup($pdo, $data)
+{
+
     $sql = 'DELETE
      FROM `group_user`
     WHERE `user_id`=:id';
@@ -456,9 +498,9 @@ function setUserGroup($pdo,$data){
 
     $stmt->execute(
         [
-            'id' => ((int) $data['userID']),     
+            'id' => ((int) $data['userID']),
         ]
-        );
+    );
 
     $sql = 'INSERT 
                 INTO `group_user`
@@ -469,14 +511,13 @@ function setUserGroup($pdo,$data){
 
     $stmt = $pdo->prepare($sql);
 
-    foreach ($data['checkBox'] as $role){
-       
+    foreach ($data['checkBox'] as $role) {
+
         $stmt->execute(
             [
-                'user_id' => ((int) $data['userID']),     
-                'group_id' => ((int) $role),     
+                'user_id' => ((int) $data['userID']),
+                'group_id' => ((int) $role),
             ]
-            );
+        );
     }
-
 }

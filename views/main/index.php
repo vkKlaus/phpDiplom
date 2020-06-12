@@ -18,7 +18,7 @@ if (isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 
-$is_new = getTable($pdo, "product", "is_new", "", "$page, 6");
+$is_new = getTable($pdo, "product", "is_new=1 AND availability=1", "", "$page, 6");
 
 
 $prevPage = $page - 6;

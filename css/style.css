@@ -267,3 +267,44 @@ header {
 .mess-radio{
     transform: scale(2,2);
 }
+
+.form-check-input{
+    transform: scale(2.2,2.2);
+}
+
+.check-box__title{
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.btn-select{
+    font-size: 1em;
+    font-weight: normal;   
+    padding: 0 2vw;
+}
+
+.list-select{
+    width:12vw;
+    border-radius: 0.5em 0.5em;
+}
+
+
+.title-select{
+    font-family: Arial, Helvetica, sans-serif ;
+    font-weight: normal;
+    font-size: 1.2em;
+    text-align: center;
+    font-style: italic;
+}
+
+.bnt-selsect-parametrs{
+    padding: 0 1rem;
+    font-weight: bold;
+    font-size: 2em;
+    height: 1em;
+
+}
+
+.btn-sm{
+    width: 3rem;
+}
