@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +11,9 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-  
+    <link rel="stylesheet" href="/css/bootstrap-change.css">
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+
 
     <link rel="stylesheet" href="/css/style.css">
 
@@ -162,8 +162,6 @@
                             </div>
                         </li>
 
-
-
                         <li class="nav-item mr-3">
                             <a class="nav-link" href="/views/service/contact.php">
                                 <span class="item-menu <?= ($requestUri == '/views/service/contact.php' ? 'active' : '') ?>">
@@ -210,11 +208,23 @@
                                     </span>
                                 </a>
 
-                                <a class="dropdown-item" href="/views/admin/users.php">
+
+                                <a class="dropdown-item" href="/views/admin/productsCategory.php">
                                     <span class="item-submenu">
-                                        Пользователи
+                                        Категории
                                     </span>
                                 </a>
+
+                                <a class="dropdown-item" href="/views/admin/productsBrand.php">
+                                    <span class="item-submenu">
+                                        Бренды
+                                    </span>
+
+                                    <a class="dropdown-item" href="/views/admin/users.php">
+                                        <span class="item-submenu">
+                                            Пользователи
+                                        </span>
+                                    </a>
                             </div>
                         </li>
                     </ul>

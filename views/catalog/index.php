@@ -1,6 +1,6 @@
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 
-if (isset($_GET['basket']) && ($_GET['basket'] == 'del')){
+if (isset($_GET['basket']) && ($_GET['basket'] == 'del')) {
     if (isset($_SESSION['order'])) {
         unset($_SESSION['order']);
     }
@@ -11,8 +11,35 @@ if (isset($_GET['basket']) && ($_GET['basket'] == 'del')){
 }
 
 //фильтр
-$brandsCatalog = getTable($pdo, 'brands', '', 'name');
-$categotyCatalog = getTable($pdo, 'category', '', 'name');
+$brandsCatalog = getTable($pdo, 'brands', '`status`=1', 'name');
+$brandList = '~';
+foreach ($brandsCatalog as $el) {
+    $brandList .= ',' . $el['id'];
+}
+
+$brandList = str_replace('~,', '', $brandList);
+
+if ($brandList == '~') {
+    $brandList = ' `brand` IN (-1)';
+} else {
+    $brandList = ' `brand` IN (' . $brandList . ')';
+}
+
+$categoryCatalog = getTable($pdo, 'category', '`status`=1', 'name');
+$categoryList = '~';
+foreach ($categoryCatalog  as $el) {
+    $categoryList .= ',' . $el['id'];
+}
+
+$categoryList = str_replace('~,', '', $categoryList);
+
+if ($categoryList == '~') {
+    $categoryList = ' `category_id` IN (-1)';
+} else {
+    $categoryList = ' `category_id` IN (' . $categoryList . ')';
+}
+
+
 $priceCatalog = getPrice($pdo);
 
 if (isset($_POST['filterSend'])) {
@@ -109,6 +136,10 @@ if (isset($_GET['page'])) {
 $sortName = $_SESSION['sort']['name'];
 
 $sortCost = $_SESSION['sort']['cost'];
+
+
+$strFilter .= ($strFilter == "" ? "" : " AND ") . "$brandList AND $categoryList";
+
 
 $product = getTable(
     $pdo,

@@ -3,7 +3,7 @@
         <h4>Категории</h4>
 
         <fieldset class="scroll_space">
-            <?php foreach ($categotyCatalog as $category) { ?>
+            <?php foreach ($categoryCatalog as $category) { ?>
                 <div>
                     <input type="checkbox" name="category[]" value="<?= $category['id'] ?>" <?= isset($post['category']) && in_array($category['id'], $post['category']) ? "checked" : "" ?>>
 

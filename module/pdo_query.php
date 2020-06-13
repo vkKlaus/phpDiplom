@@ -73,6 +73,11 @@ function getTable(object $pdo, string $table, string $where = "1", $sort = "", $
 
 /**
  * получение полной информации по продуку для вывода
+ *  @param object $pdo - объект соединения с БД
+ * @param string $where - условие
+ * @param string $sort - сортировка
+ * @param string $limit - выборка
+ * @return array - результат  сообщения
  */
 function getTableFullProducts(object $pdo, string $where = "1", $sort = "", $limit = ""): array
 {
@@ -100,16 +105,16 @@ function getTableFullProducts(object $pdo, string $where = "1", $sort = "", $lim
 /**
  * установка параметра продукта
  */
-function setProductParametr($pdo, $param, $id)
+function setParametr($pdo, $table, $param, $id)
 {
 
-    $sql = "UPDATE `product` 
+    $sql = "UPDATE `$table` 
             SET `$param`=NOT `$param` 
             WHERE `id`=:id";
 
     $stmt = $pdo->prepare($sql);
 
-    $stmt->execute(['id'=>$id]);
+    $stmt->execute(['id' => $id]);
 }
 
 /**
@@ -212,9 +217,9 @@ function getPrice(object $pdo, string $where = "1"): array
     return $stmt->fetchAll();
 }
 
-/**
- *  @param object $pdo - объект соединения с БД
+/** сохраняем заказ
  * 
+ *  @param object $pdo - объект соединения с БД
  */
 function saveOrder(object $pdo)
 {
@@ -465,8 +470,7 @@ function updMessage(object $pdo, array $mess)
     ));
 }
 
-/**
- * изменить статус
+/** изменить статус
  * @param object $pdo - объект соединения с БД
  * @param array $status - массив с сообщение
  */
@@ -487,7 +491,12 @@ function changeStatus(object $pdo, array $status)
     ));
 }
 
-function setUserGroup($pdo, $data)
+/** добавляем пользователя в группу 
+ *  @param object $pdo подключение
+ *  @param array $data данные
+ */
+
+function setUserGroup(object $pdo, array $data)
 {
 
     $sql = 'DELETE
@@ -520,4 +529,52 @@ function setUserGroup($pdo, $data)
             ]
         );
     }
+}
+
+/** добавляем / обновляем данные
+ *  @param object $pdo подключение
+ *  @param string $table таблица
+ *  @param array $data данные
+ */
+function saveParametr(object $pdo, string $table, array $data)
+{
+
+    if ($data['id'] == '') {
+        $sql = "SELECT MAX(`id`) as maxID FROM `$table`";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $data['id'] = $result[0]['maxID'] + 1;
+
+        $sql = "INSERT 
+        INTO `$table`
+            ( 
+                `id`, 
+                `name`, 
+                `status`
+            )
+        VALUES 
+            (
+                :id,
+                :name,
+                :status
+            )";
+    } else {
+        $sql = "UPDATE `$table` 
+                SET 
+                    `name`=:name,
+                    `status`=:status 
+                WHERE `id`=:id";
+    }
+
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(
+        [
+            'name' => $data['name'],
+            'status' => $data['status'],
+            'id' => $data['id']
+
+        ]
+    );
 }
