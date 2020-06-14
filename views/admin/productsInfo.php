@@ -51,7 +51,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
     <div class="col-2">
         <form method="POST">
-            <button type="submit" name="btnEdit" value="-1" class=" btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
+            <button type="submit" name="btnEdit" value="-1" class=" btn btn-outline-primary btn-lg">
                 <i class="fas fa-plus"></i>
             </button>
         </form>
@@ -90,12 +90,12 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
             <input type="radio" name="status" value="1" <?= $status == 1 ? 'checked' : '' ?> /> <strong>да</strong>
         </div>
         <div class="col-3">
-            <button type="submit" name="btnSave" value="-1" class=" btn btn-outline-primary btn-lg px-3" data-toggle="modal" data-target="#exampleModal">
-                <i class="fas fa-sign-in-alt"></i>
+           <button type="submit" name="btnSave" value="-1" class=" btn btn-outline-primary btn-lg px-3">
+                <i class="fas fa-download"></i>
             </button>
 
-            <button type="submit" name="btnReturn" value="-1" class=" btn btn-outline-primary btn-lg px-3" data-toggle="modal" data-target="#exampleModal">
-                <i class="fas fa-times"></i>
+            <button type="submit" name="btnReturn" value="-1" class=" btn btn-outline-primary btn-lg px-3">
+                <i class="fas fa-reply"></i>
             </button>
         </div>
 
@@ -139,7 +139,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
             <div class="col-2">
                 <form method="POST">
-                    <button type="submit" name="btnEdit" value="<?= $el['id'] ?>" class=" btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    <button type="submit" name="btnEdit" value="<?= $el['id'] ?>" class=" btn btn-outline-primary btn-sm">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
                 </form>

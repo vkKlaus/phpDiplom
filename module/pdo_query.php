@@ -578,3 +578,31 @@ function saveParametr(object $pdo, string $table, array $data)
         ]
     );
 }
+
+/** добавляем / обновляем данные
+ *  @param object $pdo подключение
+
+ *  @param array $data данные
+ */
+function savePrice(object $pdo,array $data)
+{
+
+   
+        $sql = "UPDATE `product` 
+                SET 
+                    `price`=:price,
+                    `count`=:count 
+                WHERE `id`=:id";
+    
+
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(
+        [
+            'price' => $data['price'],
+            'count' => $data['count'],
+            'id' => $data['btnSavePrice']
+
+        ]
+    );
+}

@@ -98,7 +98,7 @@
 
                 <div class="collapse navbar-collapse justify-content-start" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item mr-3">
+                        <li class="nav-item">
                             <a class="nav-link" href="/">
                                 <span class="item-menu <?= ($requestUri == '/' ? 'active' : '') ?>">
                                     Главная <span class="sr-only">(current)</span>
@@ -106,7 +106,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item dropdown mr-3">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="item-menu <?= ($requestUri == '/views/service/delivery.php' || $requestUri == '/views/catalog/' ? 'active' : '') ?>">
                                     Магазин
@@ -134,7 +134,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown mr-3">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="item-menu <?= ($requestUri == '/views/service/about.php' ||  $requestUri == '/views/service/news.php' || $requestUri == '/views/service/messages.php' ? 'active' : '') ?>">
                                     Информация
@@ -162,7 +162,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item mr-3">
+                        <li class="nav-item">
                             <a class="nav-link" href="/views/service/contact.php">
                                 <span class="item-menu <?= ($requestUri == '/views/service/contact.php' ? 'active' : '') ?>">
                                     Контакты
@@ -170,7 +170,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item mr-3">
+                        <li class="nav-item">
                             <a class="nav-link" href="/views/admin/orders.php">
                                 <span class="item-menu">
                                     Заказы
@@ -178,7 +178,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item mr-3">
+                        <li class="nav-item">
                             <a class="nav-link" href="/views/admin/news.php">
                                 <span class="item-menu">
                                     Новости
@@ -186,7 +186,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item mr-3">
+                        <li class="nav-item">
                             <a class="nav-link" href="/views/admin/messages.php">
                                 <span class="item-menu">
                                     Сообщения
@@ -194,7 +194,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item dropdown mr-3">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="item-menu">
                                     Управление
