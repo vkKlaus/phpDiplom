@@ -5,7 +5,7 @@
         <div class="d-flex flex-row">
             <?php for ($j = 1; $j <= 3; $j++) { ?>
                 <div class="card_container">
-                    <img src="/images/products/<?= $is_new[$i]['id'] ?>.jpg" class="card_img" alt="...">
+                    <img src="<?= getImg($is_new[$i]['id']) ?>" class="card_img" alt="...">
 
                     <p class="card_price"><?= $is_new[$i]['price'] . '$'  ?></p>
 
@@ -53,7 +53,7 @@
         <?php foreach ($is_recom as $item_recom) { ?>
             <div class="item-recom">
 
-                <img src="/images/products/<?= $item_recom['id'] ?>.jpg" alt="<?= $item_recom['name'] ?>" class="img-recom">
+                <img src="<?= getImg($item_recom['id']) ?>" alt="<?= $item_recom['name'] ?>" class="img-recom">
 
                 <a href="/views/product/?idProduct=<?= $item_recom['id'] ?>&type=view" class="name-recom"><?= $item_recom['name'] ?></a>
 

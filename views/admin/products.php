@@ -13,16 +13,10 @@ $fr_description = '';
 $fr_is_new = 1;
 $fr_is_recommended = 0;
 $fr_img = '/images/products/0.jpg';
+$maxSizeImg = 300000;
 
-if (!isset($_SESSION['brandList'])) {
-    $_SESSION['brandList'] = getTable($pdo, 'brands');
-}
-if (!isset($_SESSION['categoryList'])) {
-    $_SESSION['categoryList'] = getTable($pdo, 'category');
-}
-
-$categorys = $_SESSION['categoryList'];
-$brands = $_SESSION['brandList'];
+$categorys = getTable($pdo, 'category');
+$brands = getTable($pdo, 'brands');
 
 $error = '';
 $errorId = 0;
@@ -32,19 +26,93 @@ if (isset($_POST['btnEdit'])) {
     if ($_POST['btnEdit'] != -1) {
 
         $element = getTableFullProducts($pdo, "`product`.`id`=" . $_POST['btnEdit']);
-        $id = $element[0]['id'];
-        $name = $element[0]['name'];
+
+        $fr_id = $element[0]['id'];
+        $fr_name =  $element[0]['name'];
+        $fr_category_id = $element[0]['category_id'];
+        $fr_brand = $element[0]['brand'];
+        $fr_price = $element[0]['price'];
+        $fr_count = $element[0]['count'];
+        $fr_availability = $element[0]['availability'];
+        $fr_description = $element[0]['description'];
+        $fr_is_new = $element[0]['is_new'];
+        $fr_is_recommended = $element[0]['is_recommended'];
+ 
+        $fr_img = getImg($element[0]['id']);
+       
+       
     }
 }
 
 if (isset($_POST['btnSave'])) {
+    if (!isset($_POST['id'])) {
+        $_POST['id'] = '';
+    }
+
+    if (!isset($_POST['fr_img'])) {
+        $_POST['fr_img'] = getImg($_POST['id']);
+    }
+
 
     if (trim($_POST['name']) == '') {
-        $error = 'пустое название?!!!!...';
+        $error .= 'пустое название; ';
         $viewEl = true;
+    }
+
+    if ((int) ($_POST['category']) == 0) {
+        $error .= 'не выбрана категория; ';
+        $viewEl = true;
+    }
+
+    if ((int) ($_POST['brand']) == 0) {
+        $error .= 'не выбран бренд; ';
+        $viewEl = true;
+    }
+
+    if ((int) ($_POST['price']) < 0) {
+        $error .= 'цена меньше нуля; ';
+        $viewEl = true;
+    }
+
+    if ((int) ($_POST['count']) < 0) {
+        $error .= 'остатки меньше нуля; ';
+        $viewEl = true;
+    }
+
+    if (trim($_POST['description']) == '') {
+        $error .= 'нет описания; ';
+        $viewEl = true;
+    }
+
+
+    if ($_POST['fr_img'] == '/images/products/0.jpg') {
+        if (trim($_FILES['fileImg']['name']) == '' && ($_FILES['fileImg']['size'] == 0)) {
+            $error .= 'нет изображения; ';
+            $viewEl = true;
+        } elseif (trim($_FILES['fileImg']['name']) != '' && ($_FILES['fileImg']['size'] == 0)) {
+            $error .= 'превышен допустимый размер изображения (' . (int) $maxSizeImg / 1000 . 'кБ); ';
+            $viewEl = true;
+        }
+    }
+
+    if ($error) {
+        $fr_id = $_POST['id'];
+        $fr_name =  $_POST['name'];
+        $fr_category_id = $_POST['category'];
+        $fr_brand = $_POST['brand'];
+        $fr_price = $_POST['price'];
+        $fr_count = $_POST['count'];
+        $fr_availability = $_POST['availability'];
+        $fr_description = $_POST['description'];
+        $fr_is_new = $_POST['new'];
+        $fr_is_recommended = $_POST['recommended'];
     } else {
-        saveParametr($pdo, $table, $_POST);
-        $viewEl = false;
+        if (saveProduct($pdo, $_POST, $_FILES)){
+            $viewEl = false;
+        }else{
+            $error='ошибка записи элемента!';  
+        }
+       
     }
 }
 if (isset($_POST['btnReturn'])) {
@@ -144,12 +212,10 @@ $products = getTableFullProducts($pdo, $where);
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
 
-<div class="row mb-3">
-    <div class="col-5">
-        <h3 class="text-info">Товары</h3>
-    </div>
+<div class="row">
+    <div class="col-12 d-flex">
+        <h3 class="text-info mr-3">Товары</h3>
 
-    <div class="col-2">
         <form method="POST">
             <button type="submit" name="btnEdit" value="-1" class=" btn btn-outline-primary btn-lg">
                 <i class="fas fa-plus"></i>
@@ -158,14 +224,27 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
     </div>
 </div>
 
+<hr class="my-2">
+
 <?php if ($viewEl) { ?>
 
-    <h3 class="text-danger"><?= $error ?></h3>
+    <h6 class="text-danger"><?= $error ?></h6>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
+        <button type="submit" name="btnReturn" value="-1" class=" btn btn-outline-primary btn-lg my-2">
+            <i class="fas fa-reply"></i>
+        </button>
+
         <div class="row">
             <div class="col-3">
+
                 <img src="<?= $fr_img ?>" alt="imgProduct" style="width: 70%" />
+
+                <input type="hidden" name="MAX_FILE_SIZE" value="<?= $maxSizeImg ?>" />
+                <div class="form-group">
+                    <label for="id-file"></label>
+                    <input type="file" name="fileImg" class="form-control-file" id="id-file" accept="image/jpg,image/jpeg">
+                </div>
             </div>
 
             <div class="col-9">
@@ -174,7 +253,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                         <div class="row form-group">
                             <label for="id-id" class="col-3">id:</label>
 
-                            <div id="id-id" class="col-7 form-control mx-3"><?= $fr_id ?></div>
+                            <input type="text" id="id-id" name="id" value="<?= $fr_id ?>" class="col-7 form-control mx-3" readonly>
                         </div>
 
                         <div class="row form-group">
@@ -226,7 +305,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
                             <input type="number" name="count" value="<?= $fr_count ?>" class="col-4 form-control" />
                         </div>
-                        
+
                         <hr>
 
                         <div class="row mb-3">
@@ -234,7 +313,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                             <div class="col-9 form-check d-flex justify-content-around">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="availability" id="id-availability-1" value="1" <?= $fr_availability == 1 ? 'checked' : '' ?>>
-                                   
+
                                     <label class="form-check-label ml-2" for="id-availability-1">
                                         да
                                     </label>
@@ -255,12 +334,12 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                             <div class="col-9 form-check d-flex justify-content-around">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="new" id="id-new-1" value="1" <?= $fr_is_new == 1 ? 'checked' : '' ?>>
-                                
+
                                     <label class="form-check-label ml-2" for="id-new-1">
                                         да
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="new" id="id-new-0" value="0" <?= $fr_is_new == 0 ? 'checked' : '' ?>>
 
@@ -276,7 +355,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                             <div class="col-9 form-check d-flex justify-content-around">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="recommended" id="id-recommended-1" value="1" <?= $fr_is_recommended == 1 ? 'checked' : '' ?>>
-                               
+
                                     <label class="form-check-label ml-2" for="id-recommended-1">
                                         да
                                     </label>
@@ -306,13 +385,9 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                 <textarea class="form-control" name="description" id="id-description" rows="4"><?= $fr_description ?></textarea>
             </div>
 
-            <div class="col-1">
+            <div class="col-1 mt-5">
                 <button type="submit" name="btnSave" value="-1" class=" btn btn-outline-primary btn-lg px-3">
                     <i class="fas fa-download"></i>
-                </button>
-
-                <button type="submit" name="btnReturn" value="-1" class=" btn btn-outline-primary btn-lg px-3">
-                    <i class="fas fa-reply"></i>
                 </button>
             </div>
         </div>
@@ -381,7 +456,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
             <?php foreach ($products as $product) { ?>
                 <div class="row text-dark">
                     <div class="col-2  border border-info border-bottom-0 text-center py-3">
-                        <img src="/images/products/<?= $product['id'] ?>.jpg" alt="" class="card_img ">
+                        <img src="<?= getImg($product['id']) ?>" alt="" class="card_img ">
                     </div>
 
                     <div class="col-10">

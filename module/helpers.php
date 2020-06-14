@@ -56,3 +56,12 @@ function resetFilterSession()
     }
     $_SESSION['basket'][]=$id;
  }
+
+ function getImg($element){
+   
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/images/products/'.$element.'.jpg')){
+        return '/images/products/'.$element.'.jpg';
+    }
+
+    return  '/images/products/0.jpg';
+ }

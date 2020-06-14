@@ -16,8 +16,8 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 <div class="product-card">
 
     <a href="<?= $_SERVER["HTTP_REFERER"] ?>" class="product-card_close text-right"><i class="fas fa-window-close"></i></a>
-  
-    <img src="/images/products/<?= $product['id'] ?>.jpg" class="product-card_img" alt="<?= $product['name'] ?>">
+
+    <img src="<?=  getImg($product['id'])?>" class="product-card_img" alt="<?= $product['name'] ?>">
 
     <h4 class="product-card_name"><?= $product['name'] ?></h4>
 

@@ -584,16 +584,16 @@ function saveParametr(object $pdo, string $table, array $data)
 
  *  @param array $data данные
  */
-function savePrice(object $pdo,array $data)
+function savePrice(object $pdo, array $data)
 {
 
-   
-        $sql = "UPDATE `product` 
+
+    $sql = "UPDATE `product` 
                 SET 
                     `price`=:price,
                     `count`=:count 
                 WHERE `id`=:id";
-    
+
 
 
     $stmt = $pdo->prepare($sql);
@@ -605,4 +605,89 @@ function savePrice(object $pdo,array $data)
 
         ]
     );
+}
+
+/** добавляем / обновляем данные
+ *  @param object $pdo подключение
+
+ *  @param array $data данные
+ *  @param array $img данные изображения
+ */
+function saveProduct(object $pdo, array $data, array $img)
+{
+    if ($data['id'] == '') {
+        $sql = "SELECT MAX(`id`) as maxID FROM `product`";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $data['id'] = $result[0]['maxID'] + 1;
+        $sql = "INSERT 
+            INTO `product`
+                ( 
+                    `id`, 
+                    `name`, 
+                    `category_id`,
+                    `price`, 
+                    `count`, 
+                    `brand`, 
+                    `availability`,
+                    `description`,
+                    `is_new`, 
+                    `is_recommended`
+                        )
+            VALUES 
+                (
+                    :id, 
+                    :name, 
+                    :category_id,
+                    :price, 
+                    :count, 
+                    :brand, 
+                    :availability,
+                    :description,
+                    :is_new, 
+                    :is_recommended
+                )";
+    } else {
+        $sql = "UPDATE `product` 
+                SET 
+                    `name`=:name, 
+                    `category_id`=:category_id,
+                    `price`=:price, 
+                    `count`=:count, 
+                    `brand`=:brand, 
+                    `availability`=:availability,
+                    `description`=:description,
+                    `is_new`=:is_new, 
+                    `is_recommended`=:is_recommended
+                WHERE `id`=:id";
+    }
+
+    $stmt = $pdo->prepare($sql);
+
+    $result=$stmt->execute(
+        [
+            'name' => $data['name'],
+            'category_id' => $data['category'],
+            'price' => $data['price'],
+            'count' => $data['count'],
+            'brand' => $data['brand'],
+            'availability' => $data['availability'],
+            'description' => $data['description'],
+            'is_new' => $data['new'],
+            'is_recommended' => $data['recommended'],
+            'id' => $data['id'],
+        ]
+    );
+
+    if ($result){
+        if ($img['fileImg']['size'] != 0){
+            if (move_uploaded_file($img['fileImg']['tmp_name'], 
+                    $_SERVER['DOCUMENT_ROOT'].'/images/products/'.$data['id'].'.jpg')) {
+                    return true;    
+            }
+        }
+    }
+
+    return false;
 }

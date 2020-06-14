@@ -18,7 +18,7 @@
         <div class="d-flex flex-row">
             <?php for ($j = 1; $j <= 4; $j++) { ?>
                 <div class="card_container">
-                    <img src="/images/products/<?= $product[$i]['id'] ?>.jpg" class="card_img" alt="...">
+                    <img src="<?= getImg($product[$i]['id']) ?>" class="card_img" alt="...">
 
                     <p class="card_price"><?= $product[$i]['price'] . '$'  ?></p>
 
