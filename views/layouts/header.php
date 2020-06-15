@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-change.css">
-    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap-change.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
 
     <link rel="stylesheet" href="/css/style.css">
@@ -243,7 +243,7 @@
                     </li>
 
                     <li>
-                        <a href="/user/login/">
+                        <a href="/views/authorization/">
                             <span class="header-enter">
                                 <i class="fa fa-lock"></i>
                                 Вход
