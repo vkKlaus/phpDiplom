@@ -115,6 +115,9 @@ if (isset($_POST['btnSave'])) {
        
     }
 }
+
+//$viewEl = true;
+
 if (isset($_POST['btnReturn'])) {
     unset($_POST);
     $viewEl = false;

@@ -101,7 +101,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                             </td>
 
                             <td>
-                                <input type="number" class="text-right count" id="<?= $item['id'] ?>" name="<?= $item['id'] ?>_count" value="<?= $item['count'] ?>">
+                                <input type="number" class="text-right count" id="<?= $item['id'] ?>" name="<?= $item['id'] ?>_count" value="<?= $item['count'] ?>" readonly>
                             </td>
 
                             <td class="col text-right sum" id="<?= $item['id'] ?>_sum">

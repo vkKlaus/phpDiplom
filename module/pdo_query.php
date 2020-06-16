@@ -120,11 +120,11 @@ function setParametr($pdo, $table, $param, $id)
 /**
  * функция получения  таблицы заказов
  * @param object $pdo - объект соединения с БД
- * @param array data - массив с данными
+ * @param int $idStatus - массив с данными
  * @return array - результат  сообщения
  */
 
-function getOrder(object $pdo, array $data): array
+function getOrder(object $pdo, int $idStatus): array
 {
 
 
@@ -137,8 +137,8 @@ function getOrder(object $pdo, array $data): array
             ON 
             `orders`.delivery = `delivery`.id";
 
-    if ($data) {
-        $sql .= ' WHERE `status_id` = ' . $data['status'];
+    if ($idStatus!=-1) {
+        $sql .= ' WHERE `status_id` = ' . $idStatus;
     }
 
 
@@ -615,6 +615,8 @@ function savePrice(object $pdo, array $data)
  */
 function saveProduct(object $pdo, array $data, array $img)
 {
+
+
     if ($data['id'] == '') {
         $sql = "SELECT MAX(`id`) as maxID FROM `product`";
         $stmt = $pdo->prepare($sql);
@@ -648,43 +650,66 @@ function saveProduct(object $pdo, array $data, array $img)
                     :is_new, 
                     :is_recommended
                 )";
+
+
+        $parametrs =  [
+            'name' => $data['name'],
+            'category_id' => $data['category'],
+            'price' => $data['price'],
+            'count' => $data['count'],
+            'brand' => $data['brand'],
+            'availability' =>  $data['availability'],
+            'description' => $data['description'],
+            'new' => $data['new'],
+            'recommended' => $data['recommended'],
+            'id' => $data['id'],
+        ];
     } else {
+        $sql = "SELECT `availability`,`is_new`, `is_recommended` FROM `product` WHERE `id` = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' =>  $data['id'],]);
+        $result = $stmt->fetchAll();
+
+        $availability = $result[0]['availability'] != $data['availability'] ? 'NOT' : '';
+        $new = $result[0]['is_new'] != $data['new'] ? 'NOT' : '';
+        $recommended = $result[0]['is_recommended'] != $data['recommended'] ? 'NOT' : '';
+
+
         $sql = "UPDATE `product` 
                 SET 
                     `name`=:name, 
                     `category_id`=:category_id,
                     `price`=:price, 
                     `count`=:count, 
-                    `brand`=:brand, 
-                    `availability`=:availability,
+                    `brand`=:brand,
                     `description`=:description,
-                    `is_new`=:is_new, 
-                    `is_recommended`=:is_recommended
-                WHERE `id`=:id";
-    }
+                    `availability`= $availability `availability`,
+                    `is_new`= $new  `is_new`,
+                    `is_recommended`= $recommended  `is_recommended`
+            WHERE `id`=:id";
 
-    $stmt = $pdo->prepare($sql);
-
-    $result=$stmt->execute(
-        [
+        $parametrs =  [
             'name' => $data['name'],
             'category_id' => $data['category'],
             'price' => $data['price'],
             'count' => $data['count'],
             'brand' => $data['brand'],
-            'availability' => $data['availability'],
             'description' => $data['description'],
-            'is_new' => $data['new'],
-            'is_recommended' => $data['recommended'],
             'id' => $data['id'],
-        ]
-    );
+        ];
+    }
 
-    if ($result){
-        if ($img['fileImg']['size'] != 0){
-            if (move_uploaded_file($img['fileImg']['tmp_name'], 
-                    $_SERVER['DOCUMENT_ROOT'].'/images/products/'.$data['id'].'.jpg')) {
-                    return true;    
+    $stmt = $pdo->prepare($sql);
+
+    $result = $stmt->execute($parametrs);
+
+    if ($result) {
+        if ($img['fileImg']['size'] != 0) {
+            if (move_uploaded_file(
+                $img['fileImg']['tmp_name'],
+                $_SERVER['DOCUMENT_ROOT'] . '/images/products/' . $data['id'] . '.jpg'
+            )) {
+                return true;
             }
         }
     }

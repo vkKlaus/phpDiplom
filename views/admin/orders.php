@@ -3,21 +3,25 @@ require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
 resetFilterSession();
 
 $status = getTable($pdo, 'status');
+
+if (!isset($_SESSION['idStatusSelect'])){
+    $_SESSION['idStatusSelect']=-1;
+}
+
+
+if (isset($_POST['btnSelect'])) {
+    $_SESSION['idStatusSelect']=(int)$_POST['selectStatus'];
+
+}
+
+if (isset($_POST['chnOrder'])){
+    changeStatus($pdo, $_POST);
+}
+
+$orders = getOrder($pdo,  $_SESSION['idStatusSelect']);
+
 $orderList = getOrderList($pdo);
 
-if (isset($_POST['chnOrder'])) {
-    changeStatus($pdo, $_POST);
-};
-
-if (isset($_POST['selectStatus'])) {
-    if ($_POST['status'] == -1) {
-        $orders = getOrder($pdo, []);
-    } else {
-        $orders = getOrder($pdo, $_POST);
-    }
-} else {
-    $orders = getOrder($pdo, []);
-};
 
 
 
@@ -36,19 +40,19 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
                 <div class="col-7">
 
-                    <select class="form-control" id="eselectStatus" name="status">
+                    <select class="form-control" id="selectStatus" name="selectStatus">
                         <option value="-1">все</option>
                         <?php
                         foreach ($status as $stat) { ?>
                             <option value="<?= $stat['id'] ?>" 
-                            <?= (isset($_POST['status']) && ($_POST['status'] == $stat['id'])) ? 'selected':'' ;?>><?= $stat['name'] ?></option>
+                            <?= (isset( $_SESSION['idStatusSelect']) && ( $_SESSION['idStatusSelect'] == $stat['id'])) ? 'selected':'' ;?>><?= $stat['name'] ?></option>
                         <?php } ?>
                     </select>
 
                 </div>
 
                 <div class="col-2 ">
-                    <input type="submit" class="btn btn-info" name="selectStatus" value="Отобрать">
+                    <input type="submit" class="btn btn-info" name="btnSelect" value="Отобрать">
                 </div>
             </div>
         </form>
