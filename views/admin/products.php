@@ -37,10 +37,8 @@ if (isset($_POST['btnEdit'])) {
         $fr_description = $element[0]['description'];
         $fr_is_new = $element[0]['is_new'];
         $fr_is_recommended = $element[0]['is_recommended'];
- 
+
         $fr_img = getImg($element[0]['id']);
-       
-       
     }
 }
 
@@ -107,16 +105,16 @@ if (isset($_POST['btnSave'])) {
         $fr_is_new = $_POST['new'];
         $fr_is_recommended = $_POST['recommended'];
     } else {
-        if (saveProduct($pdo, $_POST, $_FILES)){
+        if (saveProduct($pdo, $_POST, $_FILES)) {
             $viewEl = false;
-        }else{
-            $error='ошибка записи элемента!';  
+        } else {
+            $error = 'ошибка записи элемента!';
         }
-       
     }
 }
 
 //$viewEl = true;
+
 
 if (isset($_POST['btnReturn'])) {
     unset($_POST);
@@ -208,8 +206,41 @@ if ($availability != -1) {
     $where .= ($where != '' ? ' AND ' : '') . '`availability`=' . $availability;
 }
 
+$countElement=getCountElements($pdo,'product',$where);
 
-$products = getTableFullProducts($pdo, $where);
+$stepElement=5;
+
+if (!isset($_SESSION['pageEditProduct'])){
+    $_SESSION['pageEditProduct']=0;
+}
+
+$page=$_SESSION['pageEditProduct'];
+if (isset($_POST['btnStart'])){
+    $page=0;
+}elseif (isset($_POST['btnLeft'])){
+    $page=$_POST['btnLeft']-$stepElement;
+    if ($page <0){
+        $page=0;
+    }
+}elseif (isset($_POST['btnRight'])){
+    $page=$_POST['btnRight']+$stepElement;
+    if ($page >= $countElement){
+        $page=$countElement-$stepElement;
+    }
+    if ($page <0){
+        $page=0;
+    }
+}elseif (isset($_POST['btnEnd'])){
+    $page=$countElement-$stepElement;
+    if ($page <0){
+        $page=0;
+    }
+}
+
+$_SESSION['pageEditProduct']=$page;
+
+
+$products = getTableFullProducts($pdo, $where,"","$page,$stepElement");
 
 
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
@@ -564,6 +595,12 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                 <hr>
 
             <?php } ?>
+            <form method="POST" class="d-flex justify-content-center">
+                <button type="submit" name="btnBegin" value="<?= $page ?>" class="btn btn-outline-primary btn-sm px-5 mx-2 text-center"><i class="fas fa-step-backward"></i></button>
+                <button type="submit" name="btnLeft" value="<?= $page ?>" class="btn btn-outline-primary btn-sm  px-5 mx-2 text-center"><i class="fas fa-angle-double-left"></i></button>
+                <button type="submit" name="btnRight" value="<?= $page ?>" class="btn btn-outline-primary btn-sm  px-5 mx-2 text-center"><i class="fas fa-angle-double-right"></i></button>
+                <button type="submit" name="btnEnd" value="<?= $page ?>" class="btn btn-outline-primary btn-sm  px-5 mx-2 text-center"><i class="fas fa-step-forward"></i></button>
+            </form>
         </div>
     </div>
 <?php } ?>

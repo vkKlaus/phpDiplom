@@ -186,9 +186,8 @@ function getOrderList(object $pdo): array
  */
 function getCountElements(object $pdo, string $table, string $where = "1"): int
 {
-    $sql = "SELECT COUNT(*) as count FROM `$table` WHERE $where";
-
-
+    $sql = "SELECT COUNT(*) as count FROM `$table` WHERE ". ($where == "" ? 1 : "$where");
+  
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
