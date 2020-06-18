@@ -65,3 +65,27 @@ function resetFilterSession()
 
     return  '/images/products/0.jpg';
  }
+
+ 
+function valid_phone($phone)
+{
+    $regexp = '/^\s?(\+\s?7|8)([- ()]*\d){10}$/';
+
+    if (preg_match($regexp, $phone)) {
+        return true;
+    }
+
+    return false;
+}
+
+function valid_password($password)
+{
+    $regexp = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,15}$/';
+
+    if (preg_match($regexp, $password)) {
+        return true;
+    }
+
+    return false;
+   
+}

@@ -137,7 +137,7 @@ function getOrder(object $pdo, int $idStatus): array
             ON 
             `orders`.delivery = `delivery`.id";
 
-    if ($idStatus!=-1) {
+    if ($idStatus != -1) {
         $sql .= ' WHERE `status_id` = ' . $idStatus;
     }
 
@@ -186,8 +186,8 @@ function getOrderList(object $pdo): array
  */
 function getCountElements(object $pdo, string $table, string $where = "1"): int
 {
-    $sql = "SELECT COUNT(*) as count FROM `$table` WHERE ". ($where == "" ? 1 : "$where");
-  
+    $sql = "SELECT COUNT(*) as count FROM `$table` WHERE " . ($where == "" ? 1 : "$where");
+
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute();
@@ -714,4 +714,102 @@ function saveProduct(object $pdo, array $data, array $img)
     }
 
     return false;
+}
+
+function getUser($pdo,  $login, $field)
+{
+    $login =  htmlspecialchars($login, ENT_QUOTES);
+
+    $sql = "SELECT * FROM `users` WHERE `$field`=:login LIMIT 1";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'login' => $login
+    ]);
+
+    $users = $stmt->fetchAll();
+
+    if (count($users) == 0) {
+        return [];
+    }
+
+    return $users[0];
+}
+
+function addUser($pdo, $data)
+{
+
+    $login = htmlspecialchars($data['login'], ENT_QUOTES);
+
+    $email = htmlspecialchars($data['email'], ENT_QUOTES);
+
+    $phone = htmlspecialchars($data['phone'], ENT_QUOTES);
+
+    $password = password_hash($data['password_1'], PASSWORD_BCRYPT);
+
+    $sql = "INSERT INTO `users` 
+    (
+        `email`,
+        `phone`,
+        `password`,
+        `user`
+      
+    ) 
+    values 
+    (
+        '$email',
+        '$phone', 
+        '$password',
+        '$login'      
+        )";
+
+    $stmt = $pdo->prepare($sql);
+
+    $result = $stmt->execute();
+
+    var_dump($result);
+    if ($result) {
+        return getUser($pdo, $login, 'user');
+    } else {
+        return [];
+    }
+};
+
+function updatePassword($pdo, $data)
+{
+    $password = password_hash($data['password_1'], PASSWORD_BCRYPT);
+
+    $sql = " UPDATE `users`
+     SET `password`=:pass
+     WHERE `user`=:user";
+
+    $stmt = $pdo->prepare($sql);
+
+    return ($stmt->execute([
+        'user' => $data['login'],
+        'pass' => $password,
+    ]));
+}
+
+function getPages($pdo,$data){
+   
+    $sql ='SELECT DISTINCT 
+                `group_page`.`page` 
+            FROM
+                `group_user` 
+                LEFT JOIN 
+                    `group_page` 
+                 ON 
+                    `group_user`.`group_id`=`group_page`.`group_id` 
+            WHERE
+                `group_user`.`user_id`=:id';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'id' => $data['id'],
+    ]);
+
+    return (array_column($stmt->fetchAll(),'page'));
 }

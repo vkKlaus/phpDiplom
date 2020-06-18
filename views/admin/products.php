@@ -21,6 +21,8 @@ $brands = getTable($pdo, 'brands');
 $error = '';
 $errorId = 0;
 
+$page=0;
+
 if (isset($_POST['btnEdit'])) {
     $viewEl = true;
     if ($_POST['btnEdit'] != -1) {
@@ -176,6 +178,8 @@ if (isset($_POST['select'])) {
     $new =  $_SESSION['new'] = $_POST['new'];
     $recommend =  $_SESSION['recommend'] = $_POST['recommend'];
     $availability =  $_SESSION['availability'] = $_POST['availability'];
+    $_SESSION['pageEditProduct']=0;
+    $page=0;
 } else {
     $brand = $_SESSION['brand'];
     $category = $_SESSION['category'];
@@ -546,7 +550,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
                                     <div class="col-8 text-left ">
                                         <form method="POST">
-                                            <button type="submit" name="availability" value="<?= $product['id'] ?>" class="btn btn-outline-primary  btn-sm"> <?= ($product['availability'] ? 'да' : 'нет') ?></button>
+                                            <button type="submit" name="availability" value="<?= $product['id'] ?>" class="btn <?= ($product['availability'] ? ' btn-outline-success' : 'btn-outline-danger') ?>   btn-sm"> <?= ($product['availability'] ? 'да' : 'нет') ?></button>
                                         </form>
                                     </div>
                                 </div>
@@ -556,7 +560,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
                                     <div class="col-8 text-left">
                                         <form method="POST">
-                                            <button type="submit" name="new" value="<?= $product['id'] ?>" class="btn btn-outline-primary  btn-sm"> <?= ($product['is_new'] ? 'да' : 'нет') ?></button>
+                                            <button type="submit" name="new" value="<?= $product['id'] ?>" class="btn  <?= ($product['is_new'] ? ' btn-outline-success' : 'btn-outline-danger') ?>  btn-sm"> <?= ($product['is_new'] ? 'да' : 'нет') ?></button>
                                         </form>
                                     </div>
                                 </div>
@@ -566,7 +570,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 
                                     <div class="col-8 text-left">
                                         <form method="POST">
-                                            <button type="submit" name="recommended" value="<?= $product['id'] ?>" class="btn btn-outline-primary btn-sm"> <?= ($product['is_recommended'] ? 'да' : 'нет') ?></button>
+                                            <button type="submit" name="recommended" value="<?= $product['id'] ?>" class="btn  <?= ($product['is_recommended'] ? ' btn-outline-success' : 'btn-outline-danger') ?>  btn-sm"> <?= ($product['is_recommended'] ? 'да' : 'нет') ?></button>
                                         </form>
                                     </div>
                                 </div>

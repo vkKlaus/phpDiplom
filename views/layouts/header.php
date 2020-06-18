@@ -179,17 +179,17 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/news.php">
+                            <a class="nav-link" href="/views/admin/messages.php">
                                 <span class="item-menu">
-                                    Новости
+                                    Сообщения
                                 </span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/messages.php">
+                            <a class="nav-link" href="/views/admin/news.php">
                                 <span class="item-menu">
-                                    Сообщения
+                                    Новости
                                 </span>
                             </a>
                         </li>
@@ -243,12 +243,21 @@
                     </li>
 
                     <li>
-                        <a href="/views/authorization/">
-                            <span class="header-enter">
-                                <i class="fa fa-lock"></i>
-                                Вход
-                            </span>
-                        </a>
+                        <?php if (isset($_SESSION['user']['user'])) { ?>
+                            <a href="/views/authorization/exit.php">
+                                <span class="header-enter">
+                                <i class="fas fa-sign-out-alt"></i>
+                                    Выход (<?= $_SESSION['user']['user']?>)
+                                </span>
+                            </a>
+                        <?php } else { ?>
+                            <a href="/views/authorization/">
+                                <span class="header-enter">
+                                    <i class="fa fa-lock"></i>
+                                    Вход
+                                </span>
+                            </a>
+                        <?php } ?>
                     </li>
                 </ul>
             </div>
