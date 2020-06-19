@@ -1,7 +1,5 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/index.php';
-
 if (isset($_SESSION['user'])) {
    $_SESSION['user']=[];
 }
