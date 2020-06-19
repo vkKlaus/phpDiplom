@@ -89,3 +89,7 @@ function valid_password($password)
     return false;
    
 }
+
+function returnMain($host){
+    header("Location: $host");
+}

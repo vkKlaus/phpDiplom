@@ -70,7 +70,7 @@ foreach ($users as $user) { ?>
                     <?php } ?>
                 </div>
                 <div class="col-6 pt-2 text-left">
-                    <button type="submit" class="btn btn-primary btn-sm" name="setRole" value="set">Установить</button>
+                    <button type="submit" class="btn btn-outline-primary btn-sm" name="setRole" value="set"><i class="fas fa-download"></i></button>
                     <input name="userID" value="<?= $user['id'] ?>" type="text" style="visibility: hidden; width: 0; height: 0;" />
                 </div>
             </form>

@@ -88,7 +88,7 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                     foreach ($_SESSION['order'] as $key => $item) { ?>
 
                         <tr>
-                            <th scope="row col">
+                            <th scope="col">
                                 <?= $num++ ?>.
                             </th>
 

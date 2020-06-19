@@ -29,18 +29,17 @@
         <hr>
 
         <h4>Цена</h4>
-
-        <legend>
+        <div>
             <span>от</span>
 
             <input type="number" id="price-min" min="<?= $priceCatalog[0]['min'] ?>" max="<?= $priceCatalog[0]['max'] ?>" name="priceMin" class="filterPrice" value="<?= isset($post['priceMin']) ? $post['priceMin'] : (int) $priceCatalog[0]['min'] ?>">
-        </legend>
+        </div>
 
-        <legend>
+        <div>
             <span>до</span>
 
-            <input type="number" id="price-max" min="<?= $priceCatalog[0]['min'] ?>" max="<?= $priceCatalog[0]['max'] ?>" name="priceMax" class="filterPrice" value="<?= isset($post['priceMax']) ? $post['priceMax'] :(int) $priceCatalog[0]['max'] ?>">
-        </legend>
+            <input type="number" id="price-max" min="<?= $priceCatalog[0]['min'] ?>" max="<?= $priceCatalog[0]['max'] ?>" name="priceMax" class="filterPrice" value="<?= isset($post['priceMax']) ? $post['priceMax'] : (int) $priceCatalog[0]['max'] ?>">
+        </div>
 
         <input type="submit" id="filter-submit" class="btn btn-info btn-lg float-right mt-5" name="filterSend" value="Применить">
         <input type="submit" id="filter-reset" class="btn btn-info btn-lg float-left mt-5" name="filterReset" value="Очистить">

@@ -608,7 +608,6 @@ function savePrice(object $pdo, array $data)
 
 /** добавляем / обновляем данные
  *  @param object $pdo подключение
-
  *  @param array $data данные
  *  @param array $img данные изображения
  */
@@ -716,6 +715,11 @@ function saveProduct(object $pdo, array $data, array $img)
     return false;
 }
 
+/** получаем пользователя
+ *  @param object $pdo подключение
+ *  @param ыекштп $data данные пользователя
+ *  @return array user
+ */
 function getUser($pdo,  $login, $field)
 {
     $login =  htmlspecialchars($login, ENT_QUOTES);
@@ -737,6 +741,12 @@ function getUser($pdo,  $login, $field)
     return $users[0];
 }
 
+
+/** обновляем пароль
+ *  @param object $pdo подключение
+ *  @param array $data данные пользователя
+ *  @return bool результат 
+ */
 function addUser($pdo, $data)
 {
 
@@ -768,13 +778,18 @@ function addUser($pdo, $data)
 
     $result = $stmt->execute();
 
-    var_dump($result);
     if ($result) {
         return getUser($pdo, $login, 'user');
     } else {
         return [];
     }
 };
+
+/** обновляем пароль
+ *  @param object $pdo подключение
+ *  @param array $data данные пользователя
+ *  @return bool результат обновления
+ */
 
 function updatePassword($pdo, $data)
 {
@@ -792,18 +807,23 @@ function updatePassword($pdo, $data)
     ]));
 }
 
-function getPages($pdo,$data){
-   
-    $sql ='SELECT DISTINCT 
-                `group_page`.`page` 
-            FROM
-                `group_user` 
-                LEFT JOIN 
-                    `group_page` 
-                 ON 
-                    `group_user`.`group_id`=`group_page`.`group_id` 
-            WHERE
-                `group_user`.`user_id`=:id';
+/** получаем список страниц
+ *  @param object $pdo подключение
+ *  @param array $data данные пользователя
+ *  @return array доступные странницы
+ */
+function getPages($pdo, $data)
+{
+    if (!$data) {
+        return [];
+    }
+    $sql = 'SELECT DISTINCT  `pages`.`page` 
+                FROM `group_user`
+                LEFT JOIN `group_page` 
+                    ON `group_user`.`group_id`=`group_page`.`group_id` 
+                LEFT JOIN `pages` 
+                    ON `group_page`.`page_id`=`pages`.`id` 
+                WHERE `group_user`.`user_id`=:id';
 
     $stmt = $pdo->prepare($sql);
 
@@ -811,5 +831,5 @@ function getPages($pdo,$data){
         'id' => $data['id'],
     ]);
 
-    return (array_column($stmt->fetchAll(),'page'));
+    return (array_column($stmt->fetchAll(), 'page'));
 }

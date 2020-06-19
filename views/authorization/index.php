@@ -17,10 +17,8 @@ if (isset($_POST['registration'])) {
         $error .=  'ошибка авторизации';
     }else{
         $title = 'Вы вошли в систему.';
-        $pages=getPages($pdo,$user);
-        var_dump($pages);
-        $_SESSION['pages']=$pages;
         $_SESSION['user']=$user;
+        $_SESSION['pages']=getPages($pdo,$_SESSION['user']['id']);
     }
 }
 

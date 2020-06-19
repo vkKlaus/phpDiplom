@@ -54,8 +54,6 @@ if (isset($_POST['recoveryEnter'])) {
             }
         }
 
-  
-        var_dump($_POST);
     }
 }
 

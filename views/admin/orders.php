@@ -118,8 +118,8 @@ require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
                             <div class="col-3">
                                 <form method="POST">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Статус заказа</label>
-                                        <select class="form-control" id="exampleFormControlSelect1" name="status">
+                                        <label for="exampleFormControlSelect<?= $order['id'] ?>">Статус заказа</label>
+                                        <select class="form-control" id="exampleFormControlSelect<?= $order['id'] ?>" name="status">
                                             <?php
                                             foreach ($status as $stat) { ?>
                                                 <option value="<?= $stat['id'] ?>" <?= $stat['id'] == $order['status_id'] ? 'selected' : '' ?>><?= $stat['name'] ?></option>

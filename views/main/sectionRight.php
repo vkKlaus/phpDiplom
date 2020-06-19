@@ -4,7 +4,7 @@
     <?php
     foreach ($messages as $message) { ?>
         <div class="pr-5">
-            <a href="#" data=<?= $message['id'] ?>>
+            <a href="/views/service/messages.php/?id=<?= $message['id'] ?>">
                 <div class="message-date"><?= $message['date'] ?></div>
               
                 <div class="message-visitor"><strong><?= $message['visitor'] ?></strong></div>
@@ -20,5 +20,4 @@
         </div>
         <br>
     <?php } ?>
-</div>
 </div>

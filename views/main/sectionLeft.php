@@ -4,7 +4,7 @@
     <?php
     foreach ($news as $new) { ?>
         <div class="pr-5">
-            <a href="#" data=<?= $new['id'] ?>>
+            <a href="/views/service/news.php/?id=<?= $new['id'] ?>" >
                 <div class="new-date"><?= $new['date'] ?></div>
               
                 <div class="new-title"><strong><?= $new['title'] ?></strong></div>

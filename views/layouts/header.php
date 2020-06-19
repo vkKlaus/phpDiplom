@@ -1,3 +1,10 @@
+<?php
+$pages = [];
+if (isset($_SESSION['user'])) {
+    $pages = getPages($pdo, $_SESSION['user']);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +18,7 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/all.min.css">
-    <!-- <link rel="stylesheet" href="/css/bootstrap-change.css"> -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-
     <link rel="stylesheet" href="/css/style.css">
 
 
@@ -67,11 +71,11 @@
                         </a>
                     </li>
 
-                    <li">
+                    <li>
                         <a href="#">
                             <i class="fab fa-vk  social-icons"></i>
                         </a>
-                        </li>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -107,13 +111,13 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="item-menu <?= ($requestUri == '/views/service/delivery.php' || $requestUri == '/views/catalog/' ? 'active' : '') ?>">
                                     Магазин
                                 </span>
                             </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
                                 <a class="dropdown-item" href="/views/catalog/">
                                     <span class="item-submenu  <?= ($requestUri == '/views/catalog/' ? 'active' : '') ?>">
                                         Каталог товара
@@ -135,13 +139,13 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="item-menu <?= ($requestUri == '/views/service/about.php' ||  $requestUri == '/views/service/news.php' || $requestUri == '/views/service/messages.php' ? 'active' : '') ?>">
                                     Информация
                                 </span>
                             </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                                 <a class="dropdown-item" href="/views/service/news.php">
                                     <span class="item-submenu <?= ($requestUri == '/views/service/news.php' ? 'active' : '') ?>">
                                         Новости
@@ -170,63 +174,81 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/orders.php">
-                                <span class="item-menu">
-                                    Заказы
-                                </span>
-                            </a>
-                        </li>
+                        <?php if ($pages && in_array('orders', $pages)) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/views/admin/orders.php">
+                                    <span class="item-menu">
+                                        Заказы
+                                    </span>
+                                </a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/messages.php">
-                                <span class="item-menu">
-                                    Сообщения
-                                </span>
-                            </a>
-                        </li>
+                        <?php if ($pages && in_array('messages', $pages)) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/views/admin/messages.php">
+                                    <span class="item-menu">
+                                        Сообщения
+                                    </span>
+                                </a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/news.php">
-                                <span class="item-menu">
-                                    Новости
-                                </span>
-                            </a>
-                        </li>
+                        <?php if ($pages && in_array('news', $pages)) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/views/admin/news.php">
+                                    <span class="item-menu">
+                                        Новости
+                                    </span>
+                                </a>
+                            </li>
+                        <?php } ?>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="item-menu">
-                                    Управление
-                                </span>
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/views/admin/products.php">
-                                    <span class="item-submenu">
-                                        Товары
+                        <?php if ($pages && in_array('management', $pages)) { ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="item-menu">
+                                        Управление
                                     </span>
                                 </a>
 
 
-                                <a class="dropdown-item" href="/views/admin/productsCategory.php">
-                                    <span class="item-submenu">
-                                        Категории
-                                    </span>
-                                </a>
+                                <?php if ($pages && in_array('products', $pages)) { ?>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+                                        <a class="dropdown-item" href="/views/admin/products.php">
+                                            <span class="item-submenu">
+                                                Товары
+                                            </span>
+                                        </a>
+                                    <?php } ?>
 
-                                <a class="dropdown-item" href="/views/admin/productsBrand.php">
-                                    <span class="item-submenu">
-                                        Бренды
-                                    </span>
+                                    <?php if ($pages && in_array('productsCategory', $pages)) { ?>
+                                        <a class="dropdown-item" href="/views/admin/productsCategory.php">
+                                            <span class="item-submenu">
+                                                Категории
+                                            </span>
+                                        </a>
+                                    <?php } ?>
 
-                                    <a class="dropdown-item" href="/views/admin/users.php">
-                                        <span class="item-submenu">
-                                            Пользователи
-                                        </span>
-                                    </a>
-                            </div>
-                        </li>
+                                    <?php if ($pages && in_array('productsBrand', $pages)) { ?>
+                                        <a class="dropdown-item" href="/views/admin/productsBrand.php">
+                                            <span class="item-submenu">
+                                                Бренды
+                                            </span>
+                                        </a>
+                                    <?php } ?>
+
+                                    <?php if ($pages && in_array('users', $pages)) { ?>
+                                        <a class="dropdown-item" href="/views/admin/users.php">
+                                            <span class="item-submenu">
+                                                Пользователи
+                                            </span>
+                                        </a>
+                                    <?php } ?>
+
+                                    </div>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </nav>
@@ -246,8 +268,8 @@
                         <?php if (isset($_SESSION['user']['user'])) { ?>
                             <a href="/views/authorization/exit.php">
                                 <span class="header-enter">
-                                <i class="fas fa-sign-out-alt"></i>
-                                    Выход (<?= $_SESSION['user']['user']?>)
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Выход (<?= $_SESSION['user']['user'] ?>)
                                 </span>
                             </a>
                         <?php } else { ?>

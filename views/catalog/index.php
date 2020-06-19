@@ -165,7 +165,7 @@ if ($nextPage > $countEl - 12) {
 
 require  $_SERVER['DOCUMENT_ROOT'] . '/views/layouts/header.php';
 ?>
-<!-- --------------------------------------------------------------------------- -->
+
 <div class="row">
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/views/catalog/catalogLeft.php' ?>
 
